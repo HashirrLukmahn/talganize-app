@@ -9,7 +9,7 @@ function Home() {
         <div className='w-full h-full'>
             <Carousel />
 
-            <div className='flex flex-col md:flex-row justify-center items-center gap-10 bg-[#C9C5BA] text-[#4B4847] px-10 md:px-20 lg:px-40 py-20'>
+            <div className='flex flex-col md:flex-row justify-center items-center gap-10 bg-gray-light text-[#ffffff] px-10 md:px-20 lg:px-40 py-20'>
 
                 <div>
                     <h2 className='mb-10 text-4xl'>ABOUT US</h2>

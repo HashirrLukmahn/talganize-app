@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Menu } from 'lucide-react'
 import * as AppRoutes from '../../app-routes/AppRoutes'
-import Logo from '../../assets/images/Logo.svg'
+import Logo from '../../assets/images/Logo.png'
 import { Link } from 'react-router-dom'
 
 function Navbar() {
@@ -37,9 +37,9 @@ function Navbar() {
 
     return (
         <nav className="bg-[#4B4847] w-full">
-            <div className="container mx-auto px-4 py-2 flex justify-between  items-center gap-2">
+            <div className="container mx-auto px-4 py-4 flex justify-between  items-center gap-2">
                 {/* Logo */}
-                <div className="w-[50px] md:w-[80px] text-2xl font-bold text-gray-800">
+                <div className="w-[50px] md:w-[200px] text-2xl font-bold text-gray-800">
                     <img className='w-full' src={Logo} alt='Logo' />
                 </div>
                 {/* Desktop Menu */}
