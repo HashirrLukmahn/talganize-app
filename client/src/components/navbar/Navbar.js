@@ -40,7 +40,7 @@ function Navbar() {
             <div className="container mx-auto px-4 py-4 flex justify-between  items-center gap-2">
                 {/* Logo */}
                 <div className="w-[50px] md:w-[200px] text-2xl font-bold text-gray-800">
-                    <img className='w-full' src={Logo} alt='Logo' />
+                    <Link to={AppRoutes.Home}><img className='w-full' src={Logo} alt='Logo' /></Link>
                 </div>
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex space-x-6  text-semibold">
