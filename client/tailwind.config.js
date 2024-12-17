@@ -16,7 +16,8 @@ module.exports = {
         'yellow': '#F8E220',
       },
     },
-    fontFamily: { sans: ['Poppins', 'sans-serif'], },
+    fontFamily: { sans: ['Roboto', 'sans-serif'], },
+
   },
   plugins: [],
 }
