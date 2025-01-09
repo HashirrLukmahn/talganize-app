@@ -38,7 +38,7 @@ function Carousel() {
 
             {/* Overlay */}
 
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-8">
+            <div className="absolute inset-0 bg-black bg-opacity-5 flex flex-col justify-center items-center text-center text-white p-8">
                 <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Talganize</h1>
                 <p className="text-lg md:text-2xl mb-6">Find your dream job with us</p>
                 <button className="bg-[#6DD5FF] hover:bg-[#37b2e2] transition-bg duration-500 text-white font-bold py-3 px-6 rounded">
