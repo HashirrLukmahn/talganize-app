@@ -9,15 +9,19 @@ module.exports = {
         'custom-p': '16px', // Add a custom font size for paragraphs if needed
       },
       colors: {
+        'black': '000000',
+        'white': '#FFFFFF',
         'gray': '#4B4847',
         'gray-light': '#C9C5BA',
-        'green': '#97B1A6',
-        'blue': '#6DD5FF',
-        'yellow': '#F8E220',
+        'blue': '#2886A5',
+        'light-blue': '#6DD5FF',
+        'yellow': '#F0DD34',
       },
     },
     fontFamily: { sans: ['Roboto', 'sans-serif'], },
-
+    backgroundImage: {
+      'form-img': "url('src/assets/images/form-bg.png')",
+    },
   },
   plugins: [],
 }

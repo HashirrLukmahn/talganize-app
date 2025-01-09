@@ -20,13 +20,13 @@ function Navbar() {
         },
         {
             id: 2,
-            name: "Job Seekers",
-            path: AppRoutes.JobSeeker,
+            name: "About Us",
+            path: '#about-us',
         },
         {
             id: 3,
-            name: "Companies",
-            path: AppRoutes.Companies,
+            name: "Our Clients",
+            path: '#our-clients',
         },
         {
             id: 4,
@@ -36,10 +36,10 @@ function Navbar() {
     ]
 
     return (
-        <nav className="bg-[#4B4847] w-full">
+        <nav className="bg-[#4B4847] w-full sticky top-0 z-10">
             <div className="container mx-auto px-4 py-4 flex justify-between  items-baseline gap-2">
                 {/* Logo */}
-                <div className="w-[50px] md:w-[200px] text-2xl font-bold text-gray-800">
+                <div className="w-[200px] md:w-[200px] text-2xl font-bold text-gray-800">
                     <Link to={AppRoutes.Home}><img className='w-full' src={Logo} alt='Logo' /></Link>
                 </div>
                 {/* Desktop Menu */}
@@ -47,9 +47,9 @@ function Navbar() {
                     {
                         navlink.map((item) => (
                             <li key={item.id}>
-                                <Link to={item.path} className="text-[#ffffff] no-underline ">
+                                <a href={item.path} className="text-[#ffffff] no-underline ">
                                     {item.name}
-                                </Link>
+                                </a>
                             </li>
                         ))
                     }
@@ -72,9 +72,9 @@ function Navbar() {
                         {
                             navlink.map((item) => (
                                 <li key={item.id}>
-                                    <Link to={item.path} className="text-[#ffffff] no-underline font-semibold">
+                                    <a href={item.path} className="text-[#ffffff] no-underline font-semibold">
                                         {item.name}
-                                    </Link>
+                                    </a>
                                 </li>
                             ))
                         }
