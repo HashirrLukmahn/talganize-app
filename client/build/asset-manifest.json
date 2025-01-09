@@ -1,22 +1,27 @@
 {
   "files": {
-    "main.css": "/talganize-app/static/css/main.68e98943.css",
-    "main.js": "/talganize-app/static/js/main.74586f33.js",
+    "main.css": "/talganize-app/static/css/main.97ecfcb8.css",
+    "main.js": "/talganize-app/static/js/main.075019c5.js",
     "static/js/453.419a5d54.chunk.js": "/talganize-app/static/js/453.419a5d54.chunk.js",
-    "static/media/about-us.jpg": "/talganize-app/static/media/about-us.b3016cb9b64170e30355.jpg",
     "static/media/India.jpg": "/talganize-app/static/media/India.3b757be65d1bab613926.jpg",
     "static/media/Singapore.jpg": "/talganize-app/static/media/Singapore.8face9e0379773da6668.jpg",
     "static/media/USA.jpg": "/talganize-app/static/media/USA.dcf012db8e4a3273da66.jpg",
     "static/media/Logo.png": "/talganize-app/static/media/Logo.3b7c48199f45564aa0bf.png",
+    "static/media/about-us.svg": "/talganize-app/static/media/about-us.1113e4e3203861c637e477bdd987d991.svg",
+    "static/media/diligent.png": "/talganize-app/static/media/diligent.c2ba060994a401beba0b.png",
+    "static/media/panfish.png": "/talganize-app/static/media/panfish.f1388b247b9f2d10d056.png",
+    "static/media/form-bg.png": "/talganize-app/static/media/form-bg.35a66f3de982945b4e64.png",
+    "static/media/ball.png": "/talganize-app/static/media/ball.fee4dd67be8d8b4dcce0.png",
+    "static/media/uob.png": "/talganize-app/static/media/uob.0435f6bf8356a0e788ed.png",
     "static/media/Logo.svg": "/talganize-app/static/media/Logo.e0345b3e87889668a8ab0c326848901a.svg",
     "static/media/customer-1.avif": "/talganize-app/static/media/customer-1.3cd5a1de9076f8b8acce.avif",
     "index.html": "/talganize-app/index.html",
-    "main.68e98943.css.map": "/talganize-app/static/css/main.68e98943.css.map",
-    "main.74586f33.js.map": "/talganize-app/static/js/main.74586f33.js.map",
+    "main.97ecfcb8.css.map": "/talganize-app/static/css/main.97ecfcb8.css.map",
+    "main.075019c5.js.map": "/talganize-app/static/js/main.075019c5.js.map",
     "453.419a5d54.chunk.js.map": "/talganize-app/static/js/453.419a5d54.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.68e98943.css",
-    "static/js/main.74586f33.js"
+    "static/css/main.97ecfcb8.css",
+    "static/js/main.075019c5.js"
   ]
 }
