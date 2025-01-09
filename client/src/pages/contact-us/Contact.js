@@ -39,21 +39,21 @@ function Contact() {
             <div className='flex justify-center'>
                 <div className='card-container flex flex-col md:flex-row  w-[100%] md:max-w-[800px] relative top-[-100px] rounded bg-white p-4 box-shadow'>
                     <div className='h-full w-full md:w-[40%] rounded pt-12 flex flex-col gap-8 pb-8 bg-no-repeat bg-center bg-cover' style={{ backgroundImage: `url(${bgImg})` }}>
-                        <div className='px-5 flex gap-3 text-gray'>
+                        <div className='px-5 flex justify-start gap-3 text-gray'>
                             <Mail size={24} className='p-1 rounded ring-1 ring-slate-900/10' />
                             <div className='text-left'>
                                 <p className='font-semibold'>E-Mail</p>
-                                <p><a href='mailto:enquiry@talganize.com'>info@talganize.com</a></p>
+                                <p><a href='mailto:info@talganize.com'>info@talganize.com</a></p>
                             </div>
                         </div>
-                        <div className='px-5 flex gap-3 text-gray'>
+                        <div className='px-5 flex justify-start gap-3 text-gray'>
                             <Phone size={24} className='p-1 rounded ring-1 ring-slate-900/10' />
                             <div className='text-left'>
                                 <p className='font-semibold'>Phone</p>
                                 <p><a href='tel:+91 9535806430'>+91 9535806430</a></p>
                             </div>
                         </div>
-                        <div className='px-5 flex gap-3 text-gray'>
+                        <div className='px-5 flex justify-start gap-3 text-gray'>
                             <MapPin size={24} className='p-1 rounded ring-1 ring-slate-900/10' />
                             <div className='text-left'>
                                 <p className='font-semibold'>India</p>
@@ -61,11 +61,11 @@ function Contact() {
                                     DR A S Rao nagar, Secunderabad, <br></br>Hyderabad, 500062</p>
                             </div>
                         </div>
-                        <div className='px-5 flex gap-3 text-gray'>
+                        <div className='px-5 flex justify-start gap-3 text-gray'>
                             <MapPin size={24} className='p-1 rounded ring-1 ring-slate-900/10' />
                             <div className='text-left'>
                                 <p className='font-semibold'>USA</p>
-                                <p> 5 Shenton Way UIC building  <br></br> #10-01, Singapore 068808.</p>
+                                <p> 1421 Begonia Way Superior CO 80027 </p>
                             </div>
                         </div>
                     </div>
