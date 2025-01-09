@@ -1,50 +1,128 @@
-import React from 'react'
-
+import { Mail, MapPin, Phone } from 'lucide-react'
+import emailjs from '@emailjs/browser';
+import { useRef, useState } from 'react';
+import bgImg from '../../assets/images/form-bg.png'
 function Contact() {
+    const form = useRef();
+
+    const [emailStatus, setEmailStatus] = useState("")
+    const [buttonDisable, setButtonDisable] = useState(false)
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+
+        setButtonDisable(true)
+        setEmailStatus("")
+        emailjs.sendForm('service_pwpyt6i', 'template_3xbeeek', form.current, {
+            publicKey: 'KK5gpeywHnU7WSJJP',
+        })
+            .then(resp => {
+                setButtonDisable(false)
+                if (resp.status) {
+                    console.log('success.')
+                    setEmailStatus("Message sent successfully.")
+                } else {
+                    setEmailStatus("Unable to send, please try again.")
+                }
+            }).catch(err => {
+                console.log('err', err)
+                setButtonDisable(false)
+                setEmailStatus("Unable to send, please try again.")
+            })
+    }
+
     return (
-        <div className='h-[90vh] flex justify-center'>
-            <div className='container h-[100%] pt-24 flex flex-col md:flex-row justify-between items-start'>
-                <div className=''>
-                    <h1 className='text-3xl'>Contact Us</h1>
-                </div>
-                <div className='form-wrap shadow-md rounded p-5 w-[550px]'>
-                    <h1 className='font-medium text-3xl text-left mb-10'>Send Message</h1>
-                    <form className='text-left'>
-                        <div className='flex flex-col mb-5'>
-                            <label className='mb-1'>Full Name</label>
-                            <input className='px-5 py-2 border outline-none border-gray-light rounded'
-                                placeholder='Full Name'
-                                type='text'
-                                required
-                            />
+        <div className='main h-screen bg-[#fff] '>
+            <div className='w-full h-[40%] bg-[#6DD5FF] flex justify-center items-center text-white'>
+                <h1 className='text-5xl font-semibold'>Contact Us</h1>
+            </div>
+            <div className='flex justify-center'>
+                <div className='card-container flex flex-col md:flex-row  w-[100%] md:max-w-[800px] relative top-[-100px] rounded bg-white p-4 box-shadow'>
+                    <div className='h-full w-full md:w-[40%] rounded pt-12 flex flex-col gap-8 pb-8 bg-no-repeat bg-center bg-cover' style={{ backgroundImage: `url(${bgImg})` }}>
+                        <div className='px-5 flex gap-3 text-gray'>
+                            <Mail size={24} className='p-1 rounded ring-1 ring-slate-900/10' />
+                            <div className='text-left'>
+                                <p className='font-semibold'>E-Mail</p>
+                                <p><a href='mailto:enquiry@talganize.com'>info@talganize.com</a></p>
+                            </div>
                         </div>
-                        <div className='flex flex-col  mb-5'>
-                            <label className='mb-1'>Phone Number</label>
-                            <input className='px-5 py-2 border outline-none border-gray-light rounded'
-                                placeholder='Phone Number'
-                                type='tel'
-                                required
-                            />
+                        <div className='px-5 flex gap-3 text-gray'>
+                            <Phone size={24} className='p-1 rounded ring-1 ring-slate-900/10' />
+                            <div className='text-left'>
+                                <p className='font-semibold'>Phone</p>
+                                <p><a href='tel:+91 9535806430'>+91 9535806430</a></p>
+                            </div>
                         </div>
-                        <div className='flex flex-col  mb-5'>
-                            <label className='mb-1'>Email</label>
-                            <input className='px-5 py-2 border outline-none border-gray-light rounded'
-                                placeholder='Email'
-                                type='email'
-                                required
-                            />
+                        <div className='px-5 flex gap-3 text-gray'>
+                            <MapPin size={24} className='p-1 rounded ring-1 ring-slate-900/10' />
+                            <div className='text-left'>
+                                <p className='font-semibold'>India</p>
+                                <p> Plot NO 216, Phase 2, Saket Township,<br></br> Sainikpuri,
+                                    DR A S Rao nagar, Secunderabad, <br></br>Hyderabad, 500062</p>
+                            </div>
                         </div>
-                        <div className='flex flex-col  mb-5'>
-                            <label className='mb-1'>Message</label>
-                            <textarea className='px-5 py-2 border outline-none border-gray-light rounded'
-                                placeholder='Message'
-                                required
-                            />
+                        <div className='px-5 flex gap-3 text-gray'>
+                            <MapPin size={24} className='p-1 rounded ring-1 ring-slate-900/10' />
+                            <div className='text-left'>
+                                <p className='font-semibold'>USA</p>
+                                <p> 5 Shenton Way UIC building  <br></br> #10-01, Singapore 068808.</p>
+                            </div>
                         </div>
-                        <div className='w-full'>
-                            <button className='w-full bg-[#4B4847] text-white py-2 rounded'>Submit</button>
+                    </div>
+                    <div className='text-left p-10 grow'>
+                        <div className='mb-5'>
+                            <p className='text-gray text-4xl font-semibold mb-2'>Send Message</p>
+                            <p className='text-[#9BA9BD]'>Please provide your details.</p>
                         </div>
-                    </form>
+                        <form ref={form} onSubmit={e => sendEmail(e)}>
+                            <div className='flex flex-col mb-5'>
+                                <label className='text-gray mb-1'>First Name</label>
+                                <input
+                                    name='first_name'
+                                    type='text'
+                                    className='rounded-md ring-1 ring-slate-900/10 hover:ring-slate-300 shadow-sm p-2 outline-none'
+                                    placeholder='John'
+                                    required
+                                />
+                            </div>
+                            <div className='flex flex-col mb-5'>
+                                <label className='text-gray mb-1'>Last Name</label>
+                                <input
+                                    name='last_name'
+                                    type='text'
+                                    className='rounded-md ring-1 ring-slate-900/10 hover:ring-slate-300 shadow-sm p-2 outline-none'
+                                    placeholder='Doe' required />
+                            </div>
+                            <div className='flex flex-col mb-5'>
+                                <label className='text-gray mb-1'>Email Address</label>
+                                <input
+                                    name='from_email'
+                                    type='email'
+                                    className='rounded-md ring-1 ring-slate-900/10 hover:ring-slate-300 shadow-sm p-2 outline-none'
+                                    placeholder='e.g. johndoe@email.com' required />
+
+                            </div>
+                            <div className='flex flex-col mb-5'>
+                                <label className='text-gray mb-1'>Phone Number</label>
+                                <input
+                                    name='phone_number'
+                                    type='tel'
+                                    className='rounded-md ring-1 ring-slate-900/10 hover:ring-slate-300 shadow-sm p-2 outline-none'
+                                    placeholder='e.g. +1234567890' required />
+                            </div>
+                            <div className='flex flex-col mb-5'>
+                                <label className='text-gray mb-1'>Message</label>
+                                <textarea
+                                    type='text'
+                                    className='rounded-md ring-1 ring-slate-900/10 hover:ring-slate-300 shadow-sm p-2 outline-none'
+                                    placeholder='Message...' required />
+                            </div>
+                            <button className='w-full bg-[#6DD5FF] px-5 py-2 rounded text-white font-semibold'>{buttonDisable ? 'Please Wait..' : 'Submit'}</button>
+                        </form>
+                        <div className='mx-auto mt-2 bg-white  rounded-lg inline-block '>
+                            <p>{emailStatus}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
