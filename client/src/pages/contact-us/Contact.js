@@ -32,8 +32,8 @@ function Contact() {
     }
 
     return (
-        <div className='main h-screen bg-[#fff] '>
-            <div className='w-full h-[40%] bg-[#6DD5FF] flex justify-center items-center text-white'>
+        <div className='main h-screen bg-white '>
+            <div className='w-full h-[40%] bg-green flex justify-center items-center text-white'>
                 <h1 className='text-5xl font-semibold'>Contact Us</h1>
             </div>
             <div className='flex justify-center'>
@@ -117,7 +117,7 @@ function Contact() {
                                     className='rounded-md ring-1 ring-slate-900/10 hover:ring-slate-300 shadow-sm p-2 outline-none'
                                     placeholder='Message...' required />
                             </div>
-                            <button className='w-full bg-[#6DD5FF] px-5 py-2 rounded text-white font-semibold'>{buttonDisable ? 'Please Wait..' : 'Submit'}</button>
+                            <button className='w-full bg-green hover:bg-green-dark px-5 py-2 rounded text-white font-semibold'>{buttonDisable ? 'Please Wait..' : 'Submit'}</button>
                         </form>
                         <div className='mx-auto mt-2 bg-white  rounded-lg inline-block '>
                             <p>{emailStatus}</p>

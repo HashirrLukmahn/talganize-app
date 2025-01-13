@@ -12,7 +12,7 @@ function Home() {
 
             <section id='about-us' className=' bg-yellow py-10 md:py-24 lg:py-24 text-left px-5'>
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl text-center mb-20">
+                    <h2 className="text-3xl font-extrabold text-green sm:text-4xl text-center mb-20">
                         We Excel in the Following Areas
                     </h2>
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -44,11 +44,11 @@ function Home() {
             <section id='our-clients' className=" mx-auto bg-[#F1F1F1]  w-full py-10 md:py-24 lg:py-24 bg-gray-50" >
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="flex flex-col items-center justify-center space-y-4 text-center mb-20">
-                        <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl text-center mb-2">
+                        <h2 className="text-3xl font-extrabold text-green sm:text-4xl text-center mb-2">
                             Our Clients
                         </h2>
                         {/* <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Our Clients</h2> */}
-                        <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                        <p className="max-w-[900px] text-green md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
                             We're proud to work with some of the most innovative companies in the industry.
                         </p>
                     </div>
@@ -72,7 +72,7 @@ function Home() {
                 </div>
             </section>
             <footer className='py-5 text-sm bg-gray text-white'>
-                <p>2025 © TALGANIZE PRIVATE LIMITED. ALL RIGHTS RESERVED.</p>
+                <p>2025 © TALGANIZE.</p>
             </footer>
 
         </div >

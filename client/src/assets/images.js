@@ -4,15 +4,18 @@ import Singapore from './images/Singapore.jpg'
 import USA from './images/USA.jpg'
 import Logo from './images/Logo.svg'
 import AboutUs from './images/about-us.svg'
-import client1 from './images/clients/ball.png'
-import client2 from './images/clients/cooper.png'
-import client3 from './images/clients/diligent.png'
-import client4 from './images/clients/hayagreeva.png'
-import client5 from './images/clients/loreal.png'
-import client6 from './images/clients/otm.png'
-import client7 from './images/clients/panfish.png'
-import client8 from './images/clients/uob.png'
-import client9 from './images/clients/viseo.png'
+import client1 from './images/clients/Ball.png'
+import client2 from './images/clients/Cooper.png'
+import client3 from './images/clients/Diligent.png'
+import client4 from './images/clients/Hayagreeva.png'
+import client5 from './images/clients/Loreal.png'
+import client6 from './images/clients/OTM.png'
+import client7 from './images/clients/Panfish.png'
+import client8 from './images/clients/UOB.png'
+import client9 from './images/clients/Viseo.png'
+import client10 from './images/clients/Mpart.png'
+import client11 from './images/clients/Stixis.png'
+import client12 from './images/clients/ITion.png'
 
 export const reviewImg = {
     customerImg1: Customer1
@@ -40,4 +43,7 @@ export const clients = [
     { name: 'Panfish', logo: client7 },
     { name: 'UOB', logo: client8 },
     { name: 'Viseo', logo: client9 },
+    { name: 'Stixis', logo: client11 },
+    { name: 'ITion', logo: client12 },
+    { name: 'Mpart', logo: client10 },
 ]
