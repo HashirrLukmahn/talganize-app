@@ -1,6 +1,6 @@
 
 
-export const Home = '/'
-export const JobSeeker = '/job-seeker'
-export const Companies = '/companies'
-export const ContactUs = '/contact-us'
+export const Home = '/talganize-app'
+export const JobSeeker = 'talganize-app/job-seeker'
+export const Companies = 'talganize-app/companies'
+export const ContactUs = 'talganize-app/contact-us'

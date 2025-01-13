@@ -38,10 +38,10 @@ function Navbar() {
 
     return (
         <nav className="bg-yellow w-full sticky top-0 z-10">
-            <div className="container mx-auto px-4 py-4 flex justify-between md:items-baseline gap-2">
+            <div className="container mx-auto px-4 py-4 flex justify-between md:items-end gap-2">
                 {/* Logo */}
-                <div className="w-[200px] md:w-[200px] text-2xl font-bold text-gray-800">
-                    <Link to={AppRoutes.Home}><img className='w-full' src={Logo} alt='Talganize' /></Link>
+                <div className="w-[200px] md:w-[200px]">
+                    <NavLink to={AppRoutes.Home}><img className='w-full' src={Logo} alt='Talganize' /></NavLink>
                 </div>
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex space-x-6 font-semibold text-green">
