@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { Mail, MapPin } from 'lucide-react'
 import emailjs from '@emailjs/browser';
 import { useRef, useState } from 'react';
 import bgImg from '../../assets/images/form-bg.png'
@@ -44,13 +44,6 @@ function Contact() {
                             <div className='text-left'>
                                 <p className='font-semibold'>E-Mail</p>
                                 <p><a href='mailto:info@talganize.com'>info@talganize.com</a></p>
-                            </div>
-                        </div>
-                        <div className='px-5 flex justify-start gap-3 text-gray'>
-                            <Phone size={24} className='p-1 rounded ring-1 ring-slate-900/10' />
-                            <div className='text-left'>
-                                <p className='font-semibold'>Phone</p>
-                                <p><a href='tel:+91 9535806430'>+91 9535806430</a></p>
                             </div>
                         </div>
                         <div className='px-5 flex justify-start gap-3 text-gray'>
