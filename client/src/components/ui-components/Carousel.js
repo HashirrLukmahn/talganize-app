@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { carouselImages } from '../../assets/images'
+import { Link } from 'react-router-dom';
+import * as AppRoutes from '../../app-routes/AppRoutes'
 
 function Carousel() {
 
@@ -23,7 +25,7 @@ function Carousel() {
     };
 
     return (
-        <div className="relative w-full h-screen overflow-hidden">
+        <div className="relative w-full h-[90vh] overflow-hidden">
             {/* Carousel Images */}
             {carouselImages.map((img, index) => (
                 <div
@@ -36,12 +38,14 @@ function Carousel() {
 
             {/* Overlay */}
 
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-8">
+            <div className="absolute inset-0 bg-black bg-opacity-5 flex flex-col justify-center items-center text-center text-white p-8">
                 <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Talganize</h1>
                 <p className="text-lg md:text-2xl mb-6">Find your dream job with us</p>
-                <button className="bg-[#6DD5FF] hover:bg-[#37b2e2] transition-bg duration-500 text-white font-bold py-3 px-6 rounded">
-                    Get Started
-                </button>
+                <Link to={AppRoutes.ContactUs}>
+                    <button className="bg-green hover:bg-green-dark text-white font-bold py-3 px-6 rounded">
+                        Get Started
+                    </button>
+                </Link>
             </div>
 
             {/* Manual Slide Controls */}

@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/navbar/Navbar';
 import Home from './pages/home/Home';
 import * as AppRoutes from './app-routes/AppRoutes';
+import Contact from './pages/contact-us/Contact';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path={AppRoutes.Home} element={<Home />} />
+          <Route path={AppRoutes.ContactUs} element={<Contact />} />
         </Routes>
       </BrowserRouter>
     </div>
