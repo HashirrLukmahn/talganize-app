@@ -2,7 +2,6 @@ import Customer1 from './images/customer-1.avif'
 import India from './images/India.jpg'
 import Singapore from './images/Singapore.jpg'
 import USA from './images/USA.jpg'
-import Logo from './images/Logo.svg'
 import AboutUs from './images/about-us.svg'
 import client1 from './images/clients/Ball.png'
 import client2 from './images/clients/Cooper.png'
@@ -24,10 +23,6 @@ export const reviewImg = {
 export const carouselImages = [
     Singapore, India, USA
 ]
-
-export const logo = {
-    logo: Logo
-}
 
 export const images = {
     aboutUs: AboutUs,
