@@ -14,11 +14,11 @@ function Navbar() {
     };
 
     const navlink = [
-        // {
-        //     id: 1,
-        //     name: "Home",
-        //     path: AppRoutes.Home,
-        // },
+        {
+            id: 1,
+            name: "Home",
+            path: "home",
+        },
         {
             id: 2,
             name: "About Us",
@@ -29,11 +29,11 @@ function Navbar() {
             name: "Our Clients",
             path: 'our-clients',
         },
-        // {
-        //     id: 4,
-        //     name: "Contact Us",
-        //     path: AppRoutes.ContactUs
-        // },
+        {
+            id: 4,
+            name: "Contact Us",
+            path: "contact-us"
+        },
     ]
 
     return (
@@ -45,7 +45,7 @@ function Navbar() {
                 </div>
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex space-x-6 font-semibold text-green">
-                    <li><NavLink to={AppRoutes.Home} className='cursor-pointer text-green no-underline'>Home</NavLink></li>
+                    {/* <li><NavLink to={AppRoutes.Home} className='cursor-pointer text-green no-underline'>Home</NavLink></li> */}
 
                     {
                         navlink.map((item) => (
@@ -56,8 +56,13 @@ function Navbar() {
                             </li>
                         ))
                     }
-                    <li><NavLink to={AppRoutes.ContactUs} className='cursor-pointer no-underline'>Contact us</NavLink></li>
+                    {/* <li><NavLink to={AppRoutes.ContactUs} className='cursor-pointer no-underline'>Contact us</NavLink></li> */}
                 </ul>
+
+
+
+
+
 
                 {/* Mobile Menu Toggle */}
                 <button
@@ -73,7 +78,6 @@ function Navbar() {
             {isOpen && (
                 <div className="md:hidden bg-yellow px-4 py-2">
                     <ul className="flex flex-col items-center space-y-2 text-green font-semibold">
-                        <li><NavLink to={AppRoutes.Home} className=' no-underline '>Home</NavLink></li>
                         {
                             navlink.map((item) => (
                                 <li key={item.id}>
@@ -83,7 +87,6 @@ function Navbar() {
                                 </li>
                             ))
                         }
-                        <li><NavLink to={AppRoutes.ContactUs} className='no-underline'>Contact us</NavLink></li>
                     </ul>
                 </div>
             )}
