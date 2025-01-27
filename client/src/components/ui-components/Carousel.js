@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { carouselImages } from '../../assets/images'
-import { Link } from 'react-router-dom';
-import * as AppRoutes from '../../app-routes/AppRoutes'
+import { Link } from 'react-scroll'
 
 function Carousel() {
 
@@ -25,7 +24,7 @@ function Carousel() {
     };
 
     return (
-        <div className="relative w-full h-[90vh] overflow-hidden">
+        <div id='home' className="relative w-full h-[90vh] overflow-hidden">
             {/* Carousel Images */}
             {carouselImages.map((img, index) => (
                 <div
@@ -41,10 +40,9 @@ function Carousel() {
             <div className="absolute inset-0 bg-black bg-opacity-5 flex flex-col justify-center items-center text-center text-white p-8">
                 <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Talganize</h1>
                 <p className="text-lg md:text-2xl mb-6">Find your dream job with us</p>
-                <Link to={AppRoutes.ContactUs}>
-                    <button className="bg-green hover:bg-green-dark text-white font-bold py-3 px-6 rounded">
-                        Get Started
-                    </button>
+
+                <Link to="contact-us" smooth={true} duration={300} className="cursor-pointer no-underline bg-green hover:bg-green-dark text-white font-bold py-3 px-6 rounded">
+                    Get Started
                 </Link>
             </div>
 

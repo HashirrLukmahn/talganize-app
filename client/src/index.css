@@ -1,11 +1,13 @@
 @tailwind base;
+
 .heading {
   @apply text-4xl;
   @apply font-semibold;
   @apply mb-4
 }
-.box-shadow{
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+
+.box-shadow {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 @tailwind components;

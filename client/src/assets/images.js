@@ -15,6 +15,7 @@ import client9 from './images/clients/Viseo.png'
 import client10 from './images/clients/Mpart.png'
 import client11 from './images/clients/Stixis.png'
 import client12 from './images/clients/ITion.png'
+import contactUs from './images/contact-us.png'
 
 export const reviewImg = {
     customerImg1: Customer1
@@ -26,6 +27,7 @@ export const carouselImages = [
 
 export const images = {
     aboutUs: AboutUs,
+    contactUs: contactUs
 }
 
 export const clients = [
