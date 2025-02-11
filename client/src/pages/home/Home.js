@@ -6,6 +6,7 @@ import { Mail, MapPin } from 'lucide-react'
 import emailjs from '@emailjs/browser';
 import { useRef, useState } from 'react';
 import bgImg from '../../assets/images/form-bg.png'
+import Navbar from '../../components/navbar/Navbar'
 function Home() {
 
 
@@ -41,6 +42,7 @@ function Home() {
     return (
 
         <div className='w-full h-full'>
+            <Navbar />
             <Carousel />
 
             <section id='about-us' className=' bg-yellow py-10 md:py-24 lg:py-24 text-left px-5'>
