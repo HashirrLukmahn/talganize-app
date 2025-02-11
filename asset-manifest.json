@@ -1,28 +1,29 @@
 {
   "files": {
-    "main.css": "/talganize-app/static/css/main.481985eb.css",
-    "main.js": "/talganize-app/static/js/main.5083430e.js",
-    "static/js/453.419a5d54.chunk.js": "/talganize-app/static/js/453.419a5d54.chunk.js",
-    "static/media/India.jpg": "/talganize-app/static/media/India.3b757be65d1bab613926.jpg",
-    "static/media/Singapore.jpg": "/talganize-app/static/media/Singapore.8face9e0379773da6668.jpg",
-    "static/media/USA.jpg": "/talganize-app/static/media/USA.dcf012db8e4a3273da66.jpg",
-    "static/media/about-us.svg": "/talganize-app/static/media/about-us.1113e4e3203861c637e477bdd987d991.svg",
-    "static/media/Stixis.png": "/talganize-app/static/media/Stixis.8973e9fd08ff40537e9e.png",
-    "static/media/Mpart.png": "/talganize-app/static/media/Mpart.d24b56912b5232a3d32f.png",
-    "static/media/Diligent.png": "/talganize-app/static/media/Diligent.26f13b82b1108f038aec.png",
-    "static/media/ITion.png": "/talganize-app/static/media/ITion.2508a6e9d2ad6415dedc.png",
-    "static/media/form-bg.png": "/talganize-app/static/media/form-bg.35a66f3de982945b4e64.png",
-    "static/media/Panfish.png": "/talganize-app/static/media/Panfish.26d1c399f36fe77bd7c0.png",
-    "static/media/UOB.png": "/talganize-app/static/media/UOB.0435f6bf8356a0e788ed.png",
-    "static/media/Talganize.svg": "/talganize-app/static/media/Talganize.e8b1bfc42c0e6e8ce2fe5fc93a73808c.svg",
-    "static/media/customer-1.avif": "/talganize-app/static/media/customer-1.3cd5a1de9076f8b8acce.avif",
-    "index.html": "/talganize-app/index.html",
-    "main.481985eb.css.map": "/talganize-app/static/css/main.481985eb.css.map",
-    "main.5083430e.js.map": "/talganize-app/static/js/main.5083430e.js.map",
-    "453.419a5d54.chunk.js.map": "/talganize-app/static/js/453.419a5d54.chunk.js.map"
+    "main.css": "/static/css/main.d9ee1e1f.css",
+    "main.js": "/static/js/main.b95c8711.js",
+    "static/js/453.419a5d54.chunk.js": "/static/js/453.419a5d54.chunk.js",
+    "static/media/India.jpg": "/static/media/India.3b757be65d1bab613926.jpg",
+    "static/media/contact-us.png": "/static/media/contact-us.f249cdfef6b7cb0c8e28.png",
+    "static/media/Singapore.jpg": "/static/media/Singapore.8face9e0379773da6668.jpg",
+    "static/media/USA.jpg": "/static/media/USA.dcf012db8e4a3273da66.jpg",
+    "static/media/about-us.svg": "/static/media/about-us.1113e4e3203861c637e477bdd987d991.svg",
+    "static/media/Stixis.png": "/static/media/Stixis.8973e9fd08ff40537e9e.png",
+    "static/media/Mpart.png": "/static/media/Mpart.d24b56912b5232a3d32f.png",
+    "static/media/Diligent.png": "/static/media/Diligent.26f13b82b1108f038aec.png",
+    "static/media/ITion.png": "/static/media/ITion.2508a6e9d2ad6415dedc.png",
+    "static/media/Panfish.png": "/static/media/Panfish.26d1c399f36fe77bd7c0.png",
+    "static/media/form-bg.png": "/static/media/form-bg.c958d733166d91414e32.png",
+    "static/media/UOB.png": "/static/media/UOB.0435f6bf8356a0e788ed.png",
+    "static/media/Talganize.svg": "/static/media/Talganize.e8b1bfc42c0e6e8ce2fe5fc93a73808c.svg",
+    "static/media/customer-1.avif": "/static/media/customer-1.3cd5a1de9076f8b8acce.avif",
+    "index.html": "/index.html",
+    "main.d9ee1e1f.css.map": "/static/css/main.d9ee1e1f.css.map",
+    "main.b95c8711.js.map": "/static/js/main.b95c8711.js.map",
+    "453.419a5d54.chunk.js.map": "/static/js/453.419a5d54.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.481985eb.css",
-    "static/js/main.5083430e.js"
+    "static/css/main.d9ee1e1f.css",
+    "static/js/main.b95c8711.js"
   ]
 }
