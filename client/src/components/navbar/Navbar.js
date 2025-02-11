@@ -56,7 +56,7 @@ function Navbar() {
                             </li>
                         ))
                     }
-                    {/* <li><NavLink to={AppRoutes.ContactUs} className='cursor-pointer no-underline'>Contact us</NavLink></li> */}
+                    <li><NavLink to={AppRoutes.Login} className='bg-green px-5 py-2 text-white rounded cursor-pointer no-underline'>Login</NavLink></li>
                 </ul>
 
 
