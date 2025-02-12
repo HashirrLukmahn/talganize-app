@@ -178,6 +178,7 @@ function Home() {
                                 <div className='flex flex-col mb-5'>
                                     <label className='text-gray mb-1'>Message</label>
                                     <textarea
+                                        name='message'
                                         type='text'
                                         className='rounded-md ring-1 ring-slate-900/10 hover:ring-slate-300 shadow-sm p-2 outline-none'
                                         placeholder='Message...' required />
