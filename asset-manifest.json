@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/talganize-app/static/css/main.d9ee1e1f.css",
-    "main.js": "/talganize-app/static/js/main.526a7027.js",
+    "main.js": "/talganize-app/static/js/main.99e174ce.js",
     "static/js/453.419a5d54.chunk.js": "/talganize-app/static/js/453.419a5d54.chunk.js",
     "static/media/India.jpg": "/talganize-app/static/media/India.3b757be65d1bab613926.jpg",
     "static/media/contact-us.png": "/talganize-app/static/media/contact-us.f249cdfef6b7cb0c8e28.png",
@@ -19,11 +19,11 @@
     "static/media/customer-1.avif": "/talganize-app/static/media/customer-1.3cd5a1de9076f8b8acce.avif",
     "index.html": "/talganize-app/index.html",
     "main.d9ee1e1f.css.map": "/talganize-app/static/css/main.d9ee1e1f.css.map",
-    "main.526a7027.js.map": "/talganize-app/static/js/main.526a7027.js.map",
+    "main.99e174ce.js.map": "/talganize-app/static/js/main.99e174ce.js.map",
     "453.419a5d54.chunk.js.map": "/talganize-app/static/js/453.419a5d54.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d9ee1e1f.css",
-    "static/js/main.526a7027.js"
+    "static/js/main.99e174ce.js"
   ]
 }
