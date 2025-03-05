@@ -6,6 +6,8 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import ForgotPassword from './pages/forgotPassword/ForgotPassword';
 import ResetPassword from './pages/resetPassword/ResetPassword';
+import Content from './components/content/Content';
+import Profile from './components/jobseeker/Profile';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path={AppRoutes.Register} element={<Register />} />
           <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
           <Route path={AppRoutes.ResetPassword} element={<ResetPassword />} />
+          <Route path={AppRoutes.Jobs} element={<Content />} />
+          <Route path={AppRoutes.Profile} element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </div>
