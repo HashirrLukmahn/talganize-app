@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { carouselImages } from '../../assets/images'
 import { Link } from 'react-scroll'
-import { jobs } from '../../assets/testData'
-import JobCard from './JobCard';
 import { Badge, Building2, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import * as AppRoutes from '../../app-routes/AppRoutes'
