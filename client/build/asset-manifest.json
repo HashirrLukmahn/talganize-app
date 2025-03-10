@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1b91e640.css",
+    "main.js": "/static/js/main.a645e101.js",
+    "static/js/453.419a5d54.chunk.js": "/static/js/453.419a5d54.chunk.js",
+    "static/media/India.jpg": "/static/media/India.3b757be65d1bab613926.jpg",
+    "static/media/contact-us.png": "/static/media/contact-us.f249cdfef6b7cb0c8e28.png",
+    "static/media/Singapore.jpg": "/static/media/Singapore.8face9e0379773da6668.jpg",
+    "static/media/USA.jpg": "/static/media/USA.dcf012db8e4a3273da66.jpg",
+    "static/media/about-us.svg": "/static/media/about-us.1113e4e3203861c637e477bdd987d991.svg",
+    "static/media/Stixis.png": "/static/media/Stixis.8973e9fd08ff40537e9e.png",
+    "static/media/Mpart.png": "/static/media/Mpart.d24b56912b5232a3d32f.png",
+    "static/media/Diligent.png": "/static/media/Diligent.26f13b82b1108f038aec.png",
+    "static/media/ITion.png": "/static/media/ITion.2508a6e9d2ad6415dedc.png",
+    "static/media/Panfish.png": "/static/media/Panfish.26d1c399f36fe77bd7c0.png",
+    "static/media/form-bg.png": "/static/media/form-bg.c958d733166d91414e32.png",
+    "static/media/UOB.png": "/static/media/UOB.0435f6bf8356a0e788ed.png",
+    "static/media/Talganize.svg": "/static/media/Talganize.4e098f539cb5e2fe2ab9fed0afc25d15.svg",
+    "static/media/customer-1.avif": "/static/media/customer-1.3cd5a1de9076f8b8acce.avif",
+    "index.html": "/index.html",
+    "main.1b91e640.css.map": "/static/css/main.1b91e640.css.map",
+    "main.a645e101.js.map": "/static/js/main.a645e101.js.map",
+    "453.419a5d54.chunk.js.map": "/static/js/453.419a5d54.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1b91e640.css",
+    "static/js/main.a645e101.js"
+  ]
+}
