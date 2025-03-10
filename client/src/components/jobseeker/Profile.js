@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from '../ui-components/Button'
 import Navbar from '../navbar/Navbar'
-import { ArrowLeft, Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 import Label from '../ui-components/Label';
 import Input from '../ui-components/Input';
 
