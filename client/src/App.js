@@ -8,19 +8,21 @@ import ForgotPassword from './pages/forgotPassword/ForgotPassword';
 import ResetPassword from './pages/resetPassword/ResetPassword';
 import Content from './components/content/Content';
 import Profile from './components/jobseeker/Profile';
+import SavedJobs from './components/jobseeker/SavedJobs';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoutes.Home} element={<Home />} />
-          <Route path={AppRoutes.Login} element={<Login />} />
-          <Route path={AppRoutes.Register} element={<Register />} />
-          <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword />} />
-          <Route path={AppRoutes.ResetPassword} element={<ResetPassword />} />
-          <Route path={AppRoutes.Jobs} element={<Content />} />
+          <Route path={AppRoutes.Home} element={<Home pageType="Homepage" />} />
+          <Route path={AppRoutes.Login} element={<Login pageType="Login" />} />
+          <Route path={AppRoutes.Register} element={<Register pageType="Register" />} />
+          <Route path={AppRoutes.ForgotPassword} element={<ForgotPassword pageType="ForgotPassword" />} />
+          <Route path={AppRoutes.ResetPassword} element={<ResetPassword pageType="ResetPassword" />} />
+          <Route path={AppRoutes.Jobs + '/*'} element={<Content pageType="Normal" />} />
           <Route path={AppRoutes.Profile} element={<Profile />} />
+          <Route path={AppRoutes.SavedJobs} element={<SavedJobs />} />
         </Routes>
       </BrowserRouter>
     </div>

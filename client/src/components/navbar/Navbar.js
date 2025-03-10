@@ -4,6 +4,7 @@ import * as AppRoutes from '../../app-routes/AppRoutes'
 import Logo from '../../assets/images/Talganize.svg'
 import { Link } from 'react-scroll'
 import { NavLink } from 'react-router-dom'
+import JobseekerDropdown from '../ui-components/JobseekerDropdown'
 
 function Navbar() {
 
@@ -44,7 +45,7 @@ function Navbar() {
                     <NavLink to={AppRoutes.Home}><img className='w-full' src={Logo} alt='Talganize' /></NavLink>
                 </div>
                 {/* Desktop Menu */}
-                <ul className="hidden md:flex space-x-6 font-semibold text-green">
+                <ul className="hidden md:flex space-x-6 font-semibold text-talgan-green">
                     {/* <li><NavLink to={AppRoutes.Home} className='cursor-pointer text-green no-underline'>Home</NavLink></li> */}
 
                     {
@@ -56,7 +57,8 @@ function Navbar() {
                             </li>
                         ))
                     }
-                    <li><NavLink to={AppRoutes.Login} className='bg-green px-5 py-2 text-white rounded cursor-pointer no-underline'>Login</NavLink></li>
+                    <li><NavLink to={AppRoutes.Login} className='bg-talgan-green px-5 py-2 text-white rounded cursor-pointer no-underline'>Login</NavLink></li>
+                    <li><JobseekerDropdown /></li>
                 </ul>
 
 
@@ -70,14 +72,14 @@ function Navbar() {
                     onClick={toggleMenu}
                 >
                     {/* Hamburger icon */}
-                    <Menu className='text-green' />
+                    <Menu className='text-talgan-green' />
                 </button>
             </div>
 
             {/* Mobile Menu */}
             {isOpen && (
                 <div className="md:hidden bg-yellow px-4 py-2">
-                    <ul className="flex flex-col items-center space-y-2 text-green font-semibold">
+                    <ul className="flex flex-col items-center space-y-2 text-talgan-green font-semibold">
                         {
                             navlink.map((item) => (
                                 <li key={item.id}>

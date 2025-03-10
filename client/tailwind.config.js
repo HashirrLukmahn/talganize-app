@@ -1,7 +1,9 @@
+const flowbite = require("flowbite-react/tailwind");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,}",
+    flowbite.content(),
   ],
   theme: {
     extend: {
@@ -11,12 +13,12 @@ module.exports = {
       colors: {
         'black': '000000',
         'white': '#FFFFFF',
-        'gray': '#4B4847',
+        'bg-gray': '#4B4847',
         'gray-light': '#C9C5BA',
         'gray-text': '#9BA9BD',
-        'green': '#155263',
-        'green-dark': '#124654',
-        'blue': '#6DD5FF',
+        'talgan-green': '#155263',
+        'talgan-green-dark': '#124654',
+        'talgan-blue': '#6DD5FF',
         'yellow': '#FFBB09',
       },
     },
@@ -25,6 +27,8 @@ module.exports = {
       'form-img': "url('src/assets/images/form-bg.png')",
     },
   },
-  plugins: [],
+  plugins: [
+    flowbite.plugin(),
+  ],
 }
 

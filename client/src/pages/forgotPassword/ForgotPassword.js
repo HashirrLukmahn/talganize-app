@@ -26,7 +26,7 @@ function ForgotPassword() {
                             type="email"
                             required
                             placeholder='Enter your e-mail'
-                            className="w-full mt-2 px-3 py-2 mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-green shadow-sm rounded-lg"
+                            className="w-full mt-2 px-3 py-2 mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
                         />
                         <Button className='w-full'>Send Password Reset Link</Button>
                     </div>

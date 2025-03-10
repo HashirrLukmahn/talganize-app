@@ -59,7 +59,7 @@ function Login() {
                             type="email"
                             required
                             placeholder='Enter your e-mail'
-                            className="w-full mt-2 px-3 py-2 mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-green shadow-sm rounded-lg"
+                            className="w-full mt-2 px-3 py-2 mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
                         />
                         <label className="font-medium">
                             Password
@@ -68,17 +68,17 @@ function Login() {
                             type="password"
                             required
                             placeholder='Enter your password'
-                            className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-green shadow-sm rounded-lg"
+                            className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
                         />
 
-                        <Button className='w-full'>Sign in</Button>
+                        <Button className='w-full mt-6'>Sign in</Button>
                     </div>
 
                     <div className='w-full flex justify-center mb-4'>
-                        <p>Don't have an account? <Link className='text-green font-semibold' to={AppRoutes.Register}>Sign up</Link></p>
+                        <p>Don't have an account? <Link className='text-talgan-green font-semibold' to={AppRoutes.Register}>Sign up</Link></p>
                     </div>
                     <div className='w-full flex justify-center'>
-                        <Link className='text-green font-semibold' to={AppRoutes.ForgotPassword}>Forgot Password?</Link>
+                        <Link className='text-talgan-green font-semibold' to={AppRoutes.ForgotPassword}>Forgot Password?</Link>
                     </div>
                 </div>
             </div>
