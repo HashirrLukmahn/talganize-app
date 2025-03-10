@@ -47,18 +47,18 @@ function Home() {
 
             <section id='about-us' className=' bg-yellow py-10 md:py-24 lg:py-24 text-left px-5'>
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-3xl font-extrabold text-green sm:text-4xl text-center mb-20">
+                    <h2 className="text-3xl font-extrabold text-talgan-green sm:text-4xl text-center mb-20">
                         We Excel in the Following Areas
                     </h2>
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                        <div className="bg-gray rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
+                        <div className="bg-bg-gray rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
                             <div className="flex items-center justify-center w-12 h-12 bg-yellow rounded-md mb-4">
                                 <Globe />
                             </div>
                             <h3 className="text-xl font-semibold text-white mb-2">Global Reach, Local Expertise</h3>
                             <p className="text-white">We proudly serve major markets across Singapore, India, and the US, ensuring our clients benefit from our extensive network and local knowledge.</p>
                         </div>
-                        <div className="bg-gray rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
+                        <div className="bg-bg-gray rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
                             <div className="flex items-center justify-center w-12 h-12 bg-yellow rounded-md mb-4">
                                 <Briefcase />
                             </div>
@@ -66,7 +66,7 @@ function Home() {
                             </h3>
                             <p className="text-white">Our proficiency in placing technology professionals extends beyond the tech sector, reaching into non-technology industries, especially private markets and manufacturing industries. This versatility allows us to meet diverse hiring needs with precision.</p>
                         </div>
-                        <div className="bg-gray rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
+                        <div className="bg-bg-gray rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
                             <div className="flex items-center justify-center w-12 h-12 bg-yellow rounded-md mb-4">
                                 <GraduationCap />
                             </div>
@@ -76,14 +76,14 @@ function Home() {
                     </div>
                 </div>
             </section >
-            <section id='our-clients' className=" mx-auto bg-[#F1F1F1]  w-full py-10 md:py-24 lg:py-24 bg-gray-50" >
+            <section id='our-clients' className=" mx-auto bg-[#F1F1F1]  w-full py-10 md:py-24 lg:py-24 " >
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="flex flex-col items-center justify-center space-y-4 text-center mb-20">
-                        <h2 className="text-3xl font-extrabold text-green sm:text-4xl text-center mb-2">
+                        <h2 className="text-3xl font-extrabold text-talgan-green sm:text-4xl text-center mb-2">
                             Our Clients
                         </h2>
                         {/* <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Our Clients</h2> */}
-                        <p className="max-w-[900px] text-green md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                        <p className="max-w-[900px] text-talgan-green md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
                             We're proud to work with some of the most innovative companies in the industry.
                         </p>
                     </div>
@@ -184,7 +184,7 @@ function Home() {
                                         className='rounded-md ring-1 ring-slate-900/10 hover:ring-slate-300 shadow-sm p-2 outline-none'
                                         placeholder='Message...' required />
                                 </div>
-                                <button className='w-full bg-green hover:bg-green-dark px-5 py-2 rounded text-white font-semibold'>{buttonDisable ? 'Please Wait..' : 'Submit'}</button>
+                                <button className='w-full bg-talgan-green hover:bg-talgan-green-dark px-5 py-2 rounded text-white font-semibold'>{buttonDisable ? 'Please Wait..' : 'Submit'}</button>
                             </form>
                             <div className='mx-auto mt-2 bg-white  rounded-lg inline-block '>
                                 <p>{emailStatus}</p>
@@ -194,7 +194,7 @@ function Home() {
                 </div>
             </section>
             <footer className='py-5 text-sm bg-yellow text-white'>
-                <p className='text-green'>2025 © TALGANIZE.</p>
+                <p className='text-talgan-green'>2025 © TALGANIZE.</p>
             </footer>
         </div >
     )

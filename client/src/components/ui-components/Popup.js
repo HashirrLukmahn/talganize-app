@@ -20,7 +20,7 @@ function Popup(props) {
                         transition
                         className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg md:max-w-[1000px] data-closed:sm:translate-y-0 data-closed:sm:scale-95"
                     >
-                        <div className="bg-white md:px-6 pt-5 pb-4 sm:p-6 sm:pb-4 max-h-[700px] overflow-auto">
+                        <div className="bg-white md:px-6 pt-5 pb-4 px-5 sm:p-6 sm:pb-4 max-h-[700px] overflow-auto">
                             <div className='flex justify-start items-center gap-3 mb-10'>
                                 <div className="mx-auto flex md:size-28 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-12">
 
@@ -97,14 +97,12 @@ function Popup(props) {
                                     <li>Provident Fund</li>
                                 </ul>
                             </div>
-
-
                         </div>
                         <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                             <button
                                 type="button"
                                 onClick={() => onClose(false)}
-                                className="inline-flex w-full justify-center rounded-md bg-green px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-dark sm:ml-3 sm:w-auto"
+                                className="inline-flex w-full justify-center rounded-md bg-talgan-green px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-talgan-green-dark sm:ml-3 sm:w-auto"
                             >
                                 Apply Now
                             </button>

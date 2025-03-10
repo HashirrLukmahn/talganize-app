@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import Button from '../ui-components/Button'
 import Navbar from '../navbar/Navbar'
-import { Plus, Trash2 } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2 } from 'lucide-react';
 import Label from '../ui-components/Label';
+import Input from '../ui-components/Input';
 
 function Profile() {
-
-
-
 
 
 
@@ -42,24 +40,24 @@ function Profile() {
         <div className='bg-[#F0F2FA] min-h-screen justify-center items-center'>
             <Navbar />
 
-
-            <div className='flex flex-col items-center mt-6'>
+            <div className='flex mx-auto max-w-[900px] justify-center py-5 mt-5 mb-2 text-4xl font-semibold text-left '>
+                <p>Profile</p>
+            </div>
+            <div className='flex flex-col items-center mt-2'>
                 <div className='rounded-xl ring-1 shadow-md hover:shadow-xl ring-slate-200 transition-shadow shadow-black/5 ring-slate-700/10 text-slate-700 p-6 text-left h-auto w-full max-w-[900px] bg-white mx-auto'>
                     <p className='mb-6 text-2xl font-semibold'>Basic Details</p>
 
                     <div className='flex flex-col sm:flex-row justify-center gap-6'>
                         <div className='w-full sm:w-1/2'>
                             <label className='text-sm font-semibold'>First Name</label>
-                            <input
+                            <Input
                                 type='text'
-                                className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                 placeholder='First Name' />
                         </div>
                         <div className='w-full sm:w-1/2'>
                             <label className='text-sm font-semibold'>Last Name</label>
-                            <input
+                            <Input
                                 type='text'
-                                className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                 placeholder='Last Name' />
                         </div>
                     </div>
@@ -67,16 +65,14 @@ function Profile() {
                     <div className='flex flex-col sm:flex-row justify-center gap-6 mt-4'>
                         <div className='w-full sm:w-1/2'>
                             <label className='text-sm font-semibold'>Email Id</label>
-                            <input
+                            <Input
                                 type='text'
-                                className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                 placeholder='Email Id' />
                         </div>
                         <div className='w-full sm:w-1/2'>
                             <label className='text-sm font-semibold'>Phone Number</label>
-                            <input
+                            <Input
                                 type='text'
-                                className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                 placeholder='Phone Number' />
                         </div>
                     </div>
@@ -109,17 +105,15 @@ function Profile() {
                                 <div className='flex flex-col sm:flex-row justify-center gap-6'>
                                     <div className='w-full'>
                                         <Label required className='text-sm font-semibold'>Company Name</Label>
-                                        <input
+                                        <Input
                                             type='text'
-                                            className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                             placeholder='Company Name'
                                         />
                                     </div>
                                     <div className='w-full'>
                                         <Label required className='text-sm font-semibold'>Job Title</Label>
-                                        <input
+                                        <Input
                                             type='text'
-                                            className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                             placeholder='Job Title'
                                         />
                                     </div>
@@ -128,29 +122,26 @@ function Profile() {
                                 <div className='flex flex-col sm:flex-row justify-center gap-6 mt-4'>
                                     <div className='w-full sm:w-1/3'>
                                         <Label required className='text-sm font-semibold'>From</Label>
-                                        <input
+                                        <Input
                                             type='month'
                                             min='1990-01'
                                             max='2025-03'
                                             required
-                                            className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                         />
                                     </div>
                                     <div className='w-full sm:w-1/3'>
                                         <Label className='text-sm font-semibold'>To</Label>
-                                        <input
+                                        <Input
                                             type='month'
                                             min='1990-01'
                                             max='2025-03'
                                             required
-                                            className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                         />
                                     </div>
                                     <div className='w-full sm:w-1/3'>
                                         <Label required className='text-sm font-semibold'>Country</Label>
-                                        <input
+                                        <Input
                                             type='text'
-                                            className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                             placeholder='Country'
                                         />
                                     </div>
@@ -159,11 +150,10 @@ function Profile() {
                                 <div className='mt-6'>
                                     <Label required className='text-sm font-semibold'>Describe your role</Label>
                                     <textarea
-                                        className='rounded-md resize-y h-32 w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
+                                        className="w-full mt-2 px-3 py-2 h-32 text-black bg-transparent outline-none border border-gray-300 focus:border-talgan-green shadow-sm rounded-lg"
                                         placeholder='Describe your role'
                                     />
                                 </div>
-
                                 <hr className='w-full h-[2px] bg-gray-400 mt-8 mb-4'></hr>
                             </div>
                         ))}
@@ -200,17 +190,15 @@ function Profile() {
                                 <div className='flex flex-col sm:flex-row justify-center gap-6'>
                                     <div className='w-full'>
                                         <label className='text-sm font-semibold'>Degree</label>
-                                        <input
+                                        <Input
                                             type='text'
-                                            className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                             placeholder='Degree'
                                         />
                                     </div>
                                     <div className='w-full'>
                                         <label className='text-sm font-semibold'>Institution Name</label>
-                                        <input
+                                        <Input
                                             type='text'
-                                            className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                             placeholder='Institution Name'
                                         />
                                     </div>
@@ -220,20 +208,18 @@ function Profile() {
                                 <div className='flex flex-col sm:flex-row justify-center gap-6 mt-4'>
                                     <div className='w-full sm:w-1/2'>
                                         <label className='text-sm font-semibold'>Graduation Year</label>
-                                        <input
+                                        <Input
                                             type='number'
                                             min='1900'
                                             max='2030'
                                             required
-                                            className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                             placeholder='Graduation Year'
                                         />
                                     </div>
                                     <div className='w-full sm:w-1/2'>
                                         <label className='text-sm font-semibold'>Country</label>
-                                        <input
+                                        <Input
                                             type='text'
-                                            className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                             placeholder='Country'
                                         />
                                     </div>
@@ -242,13 +228,11 @@ function Profile() {
                                 {/* GPA */}
                                 <div className='w-full mt-4'>
                                     <label className='text-sm font-semibold'>GPA</label>
-                                    <input
+                                    <Input
                                         type='text'
-                                        className='rounded-md w-full mt-2 px-5 py-2 outline-none ring-1 ring-gray-400'
                                         placeholder='GPA'
                                     />
                                 </div>
-
                                 <hr className='w-full h-[2px] bg-gray-400 mt-8 mb-4'></hr>
                             </div>
                         ))}
