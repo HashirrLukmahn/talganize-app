@@ -6,7 +6,10 @@ module.exports = {
   theme: {
     extend: {
       fontSize: {
-        'custom-p': '16px', // Add a custom font size for paragraphs if needed
+        'heading': '2.25rem', // 36px
+        'subheading': '1.75rem', // 28px
+        'body': '1rem', // 16px
+        'small': '0.875rem', // 14px
       },
       colors: {
         'black': '000000',
@@ -18,6 +21,27 @@ module.exports = {
         'talgan-green-dark': '#124654',
         'talgan-blue': '#6DD5FF',
         'yellow': '#FFBB09',
+        primary: '#111827',      // Dark grayish brown (Headings, Labels)
+        secondary: '#155263',    // Deep blue (Buttons, Links)
+        accent: '#6DD5FF',       // Sky blue (Hover, Active states)
+        muted: '#C9C5BA',        // Muted grayish (Backgrounds, Cards)
+        cta: '#FFBB09',          // Yellow (Call to Action)
+        lightbg: '#F5F7F9',      // Lightest background (Job Card, Sections)
+        border: '#E5E3DD',       // Borders, Muted text
+        darktext: '#33302E',     // Dark contrast text
+      },
+      fontWeight: {
+        heading: '700', // Bold for headings
+        subheading: '600', // Semi-bold for subheadings
+        body: '400', // Normal for paragraphs
+        small: '300', // Lighter for small text
+      },
+      borderRadius: {
+        'btn': '0.5rem', // Rounded button
+      },
+      padding: {
+        'btn-y': '0.625rem', // 10px vertical padding
+        'btn-x': '1.25rem', // 20px horizontal padding
       },
     },
     fontFamily: { sans: ['Roboto', 'sans-serif'], },

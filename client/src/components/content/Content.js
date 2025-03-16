@@ -40,7 +40,7 @@ function Content() {
 
 
     return (
-        <div className="bg-[#F5F7F9] min-h-screen pb-20">
+        <div className="bg-lightbg min-h-screen pb-20">
             <Navbar />
 
             {open && <Popup
