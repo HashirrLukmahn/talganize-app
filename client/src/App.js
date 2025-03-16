@@ -9,6 +9,7 @@ import ResetPassword from './pages/resetPassword/ResetPassword';
 import Content from './components/content/Content';
 import Profile from './components/jobseeker/Profile';
 import SavedJobs from './components/jobseeker/SavedJobs';
+import JobPostMain from './components/jobPost/JobPostMain';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path={AppRoutes.Jobs + '/*'} element={<Content pageType="Normal" />} />
           <Route path={AppRoutes.Profile} element={<Profile />} />
           <Route path={AppRoutes.SavedJobs} element={<SavedJobs />} />
+          <Route path={AppRoutes.JobPost} element={<JobPostMain />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -85,7 +85,7 @@ function JobCard(props) {
                     </svg>
                 </div>
                 <div className="flex flex-col items-start">
-                    <p className="font-semibold text-lg text-gray-900">{company?.name}</p>
+                    <p className="font-semibold text-lg text-primary">{company?.name}</p>
                     <div className="flex items-center text-gray-500 text-sm mt-0.5">
                         <Clock size={14} className="mr-1" />
                         <span>{company?.updatedDaysAgo} days ago</span>
@@ -99,7 +99,7 @@ function JobCard(props) {
 
             {/* Job Title & Experience */}
             <div className="mb-5 text-left flex items-baseline">
-                <h2 className="font-bold text-2xl text-gray-900 mb-1.5 mr-2">{job?.title}</h2>
+                <h2 className="font-bold text-2xl text-primary mb-1.5 mr-2">{job?.title}</h2>
                 <div className="inline-flex items-center px-1 py-1 rounded text-xs font-medium  text-gray-500" title={expLevel.value}>
                     {job?.experienceLevel}
                 </div>
@@ -148,7 +148,7 @@ function JobCard(props) {
                 <div>
                     <div className="flex items-center mb-2">
                         <DollarSign size={16} />
-                        <p className="font-semibold text-gray-900">{job.salary}</p>
+                        <p className="font-semibold text-primary">{job.salary}</p>
                     </div>
 
                     <div className="flex items-center mb-3">

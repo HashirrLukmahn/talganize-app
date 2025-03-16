@@ -1,16 +1,22 @@
-import React from 'react'
+import React from 'react';
 
-function Button({ className, children, onClick }) {
+const Button = ({ variant = "normal", className = "", children, onClick }) => {
+    const baseClasses = "px-4 py-2 font-medium rounded-lg duration-150 transition-all";
+
+    const variants = {
+        normal: "bg-secondary text-white hover:bg-talgan-green-dark",
+        outline: "border border-secondary text-secondary hover:bg-secondary hover:text-white",
+        muted: " border border-muted text-muted",
+    };
+
     return (
-        <>
-            <button
-                className={className ? `${className}  px-4 py-2 text-white font-medium bg-talgan-green hover:bg-talgan-green-dark rounded-lg duration-150` : `px-4 py-2 text-white font-medium bg-talgan-green hover:bg-talgan-green-dark active:bg-talgan-green-dark rounded-lg duration-150`}
-                onClick={onClick}
-            >
-                {children}
-            </button>
-        </>
-    )
-}
+        <button
+            className={`${baseClasses} ${variants[variant] || variants.normal} ${className}`}
+            onClick={onClick}
+        >
+            {children}
+        </button>
+    );
+};
 
-export default Button
+export default Button;
