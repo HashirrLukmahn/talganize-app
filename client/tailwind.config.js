@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -43,10 +44,11 @@ module.exports = {
         'btn-y': '0.625rem', // 10px vertical padding
         'btn-x': '1.25rem', // 20px horizontal padding
       },
-    },
-    fontFamily: { sans: ['Roboto', 'sans-serif'], },
-    backgroundImage: {
-      'form-img': "url('src/assets/images/form-bg.png')",
+      fontFamily: { sans: ['Roboto', 'sans-serif'], },
+      backgroundImage: {
+        'form-img': "url('src/assets/images/form-bg.png')",
+      },
+
     },
   },
   plugins: [],
