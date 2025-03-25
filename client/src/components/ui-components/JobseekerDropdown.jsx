@@ -1,5 +1,5 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { Bookmark, LogOut, UserCircle } from "lucide-react";
+import { Bookmark, BriefcaseBusiness, LogOut, UserCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import * as AppRoutes from '../../app-routes/AppRoutes'
 const JobseekerDropdown = () => {
@@ -45,6 +45,18 @@ const JobseekerDropdown = () => {
                             >
                                 <Bookmark className="w-4 h-4 fill-white/30" />
                                 Saved Jobs
+                            </button>
+                        )}
+                    </MenuItem>
+                    <MenuItem>
+                        {({ active }) => (
+                            <button
+                                className={`group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 ${active ? "bg-talgan-green text-yellow" : ""
+                                    }`}
+                                onClick={(e) => navigateTo(AppRoutes.JobPost)}
+                            >
+                                <BriefcaseBusiness className="w-4 h-4 fill-white/30" />
+                                Post job
                             </button>
                         )}
                     </MenuItem>

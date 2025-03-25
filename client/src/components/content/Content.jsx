@@ -7,7 +7,6 @@ import { jobs } from '../../assets/testData'
 import { useLocation } from 'react-router-dom';
 
 
-
 function Content() {
 
     const [open, setOpen] = useState(false);
@@ -76,6 +75,7 @@ function Content() {
                         </Button>
                     </form>
                 </div>
+
 
                 {/* <div className='inline-block bg-white mb-5 '>
                     <div className='flex flex-col md:flex-row gap-4 justify-center py-2 px-2 border border-gray-200 shadow-md hover:shadow-lg transition-shadow'>

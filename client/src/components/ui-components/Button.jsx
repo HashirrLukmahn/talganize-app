@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Button = ({ variant = "normal", className = "", children, onClick }) => {
-    const baseClasses = "px-4 py-2 font-medium rounded-lg duration-150 transition-all";
+    const baseClasses = "px-4 py-2  rounded-md duration-150 transition-all";
 
     const variants = {
         normal: "bg-secondary text-white hover:bg-talgan-green-dark",

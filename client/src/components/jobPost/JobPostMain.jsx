@@ -5,8 +5,11 @@ import Label from "../ui-components/Label"
 // import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 // import { Checkbox } from "@/components/ui/checkbox"
-// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+// import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, } from "@/components/ui/select"
 import { Briefcase, Building, FileText, User } from "lucide-react"
+import ButtonSelector from "../ui-components/ButtonSelector"
+import SkillSelector from "../ui-components/SkillSelector"
 
 function JobPostMain() {
     const [currentStep, setCurrentStep] = useState(1)
@@ -32,10 +35,28 @@ function JobPostMain() {
         education: "",
 
         // Additional info
-        salary: "",
+        minSalary: "",
+        maxSalary: "",
+        salaryRate: "",
         benefits: [],
         applicationDeadline: "",
     })
+
+    const suggestedSkills = [
+        { name: "AWS" },
+        { name: "Microservices" },
+        { name: "AWS Certification" },
+    ];
+
+    const availableSkills = ["MySQL", "MongoDB", "JavaScript", "React", "Python"];
+
+
+    const handleSkillSelect = (skillData) => {
+        setSelectedSkills((prev) => [...prev, skillData]);
+    };
+
+
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -68,13 +89,14 @@ function JobPostMain() {
     ]
 
     return (
-        <div className="min-h-screen bg-lightbg py-8 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl bg-lightbg  text-left  mx-auto">
-                <div className="mb-8 text-center">
-                    <h1 className="text-heading font-heading text-gray-900">Post a New Job</h1>
-                    <p className="text-small font-small text-secondary">Complete all steps to publish your job posting</p>
-                </div>
+        <div className="min-h-screen bg-yellow py-8 px-4 sm:px-6 lg:px-8 relative">
+            <div className="absolute top-[30%] left-0 w-full h-[70%] bg-white"></div>
 
+            <div className="max-w-4xl bg-none  text-left  mx-auto">
+                <div className="mb-8 text-center">
+                    <h1 className="text-heading font-heading text-lightbg">Post a New Job</h1>
+                    <p className="text-small font-small text-lightbg">Complete all steps to publish your job posting</p>
+                </div>
                 {/* Timeline */}
                 <div className="mb-8">
                     <div className="relative">
@@ -92,12 +114,16 @@ function JobPostMain() {
                                     >
                                         {step.icon}
                                     </div>
-                                    <div className="mt-2 text-sm font-medium text-gray-900">{step.name}</div>
+                                    <div className="mt-2 text-sm font-medium text-white">{step.name}</div>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="max-w-4xl   text-left  mx-auto">
+
+                {/* {JSON.stringify(formData, null, 2)} */}
 
                 {/* Form Cards */}
                 <div className="rounded-xl mt-4 ring-1 shadow-md hover:shadow-xl ring-slate-200 transition-shadow shadow-black/5 ring-slate-700/10 text-slate-700 p-6 text-left bg-white relative">
@@ -114,7 +140,7 @@ function JobPostMain() {
                         {currentStep === 1 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="companyName">Company Name</Label>
+                                    <Label htmlFor="companyName">Company name</Label>
                                     <Input
                                         id="companyName"
                                         name="companyName"
@@ -125,7 +151,7 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="companyWebsite">Company Website</Label>
+                                    <Label htmlFor="companyWebsite">Company website</Label>
                                     <Input
                                         id="companyWebsite"
                                         name="companyWebsite"
@@ -136,7 +162,7 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="companyLinkedIn">Company LinkedIn URL</Label>
+                                    <Label htmlFor="companyLinkedIn">Company's linkedIn URL</Label>
                                     <Input
                                         id="companyLinkedIn"
                                         name="companyLinkedIn"
@@ -147,7 +173,24 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="companyIndustry">Company Industry</Label>
+                                    <Label htmlFor="companyIndustry">Company industry</Label>
+                                    <Select id='companyIndustry' onValueChange={(value) => handleSelectChange("companyIndustry", value)}>
+                                        <SelectTrigger className="w-[180px]">
+                                            <SelectValue placeholder="Select Industry" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                <SelectLabel>Select Industry</SelectLabel>
+                                                <SelectItem value="technology">Technology</SelectItem>
+                                                <SelectItem value="healthcare">Healthcare</SelectItem>
+                                                <SelectItem value="finance">Finance</SelectItem>
+                                                <SelectItem value="education">Education</SelectItem>
+                                                <SelectItem value="retail">Retail</SelectItem>
+                                                <SelectItem value="manufacturing">Manufacturing</SelectItem>
+                                                <SelectItem value="other">Other</SelectItem>
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
                                     {/* <select
                                         onValueChange={(value) => handleSelectChange("companyIndustry", value)}
                                         value={formData.companyIndustry}
@@ -155,7 +198,8 @@ function JobPostMain() {
                                         <SelectTrigger id="companyIndustry">
                                             <SelectValue placeholder="Select an industry" />
                                         </SelectTrigger> */}
-                                    <select className="border p-2 bg-lightbg round-xl">
+
+                                    {/* <select className="border p-2 bg-lightbg round-xl">
                                         <option value="technology">Technology</option >
                                         <option value="healthcare">Healthcare</option >
                                         <option value="finance">Finance</option >
@@ -163,23 +207,35 @@ function JobPostMain() {
                                         <option value="retail">Retail</option >
                                         <option value="manufacturing">Manufacturing</option >
                                         <option value="other">Other</option >
-                                    </select>
+                                    </select> */}
                                     {/* </select> */}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label>Company Office Locations</Label>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                                    <Label id='companyLocation'>Company office location</Label>
+                                    <Select id='companyLocation' onValueChange={(value) => handleSelectChange("companyLocation", value)}>
+                                        <SelectTrigger className="w-[180px]">
+                                            <SelectValue placeholder="Select Location" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                <SelectLabel>Select Location</SelectLabel>
+                                                <SelectItem value="remote">Remote</SelectItem>
+                                                <SelectItem value="onsite">Onsite</SelectItem>
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
+                                    {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                                         <select className="border p-2 bg-lightbg">
                                             <option value="Remote">Remote</option >
                                             <option value="Onsite">Onsite</option >
-                                            {/* <option value="finance">Finance</option >
+                                            <option value="finance">Finance</option >
                                             <option value="education">Education</option >
                                             <option value="retail">Retail</option >
                                             <option value="manufacturing">Manufacturing</option >
-                                            <option value="other">Other</option > */}
+                                            <option value="other">Other</option >
                                         </select>
-                                        {/* <div className="flex items-center space-x-2">
+                                        <div className="flex items-center space-x-2">
                                             <input type='checkbox' id="location-us" />
                                             <label
                                                 htmlFor="location-us"
@@ -223,17 +279,17 @@ function JobPostMain() {
                                             >
                                                 Remote-first
                                             </label>
-                                        </div> */}
-                                    </div>
+                                        </div>
+                                    </div> */}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="email">Sign in Email Address</Label>
+                                    <Label htmlFor="signinemail">Sign in e-mail address</Label>
                                     <Input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        value={formData.email}
+                                        id="signinemail"
+                                        name="signinemail"
+                                        type="signinemail"
+                                        value={formData.signinemail}
                                         onChange={handleInputChange}
                                         placeholder="your@email.com"
                                     />
@@ -244,17 +300,7 @@ function JobPostMain() {
                         {currentStep === 2 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="jobTitle">Job Title</Label>
-                                    <Input
-                                        id="jobTitle"
-                                        name="jobTitle"
-                                        value={formData.jobTitle}
-                                        onChange={handleInputChange}
-                                        placeholder="e.g. Senior Software Engineer"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="jobTitle">Job Location</Label>
+                                    <Label htmlFor="jobTitle">Job title</Label>
                                     <Input
                                         id="jobTitle"
                                         name="jobTitle"
@@ -265,64 +311,28 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="jobDescription">Job Description</Label>
-                                    <textarea
-                                        id="jobDescription"
-                                        name="jobDescription"
-                                        value={formData.jobDescription}
-                                        onChange={(e) => setFormData((prev) => ({ ...prev, jobDescription: e.target.value }))}
-                                        placeholder="Describe the role and responsibilities"
-                                        className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none  focus:border-secondary disabled:cursor-not-allowed disabled:opacity-50"
-                                    />
-                                </div>
-
-                                <div className="space-y-2">
-                                    <Label>Job Location Type</Label>
-
+                                    <Label>Job location type</Label>
                                     <div>
-
+                                        <ButtonSelector onSelect={(value) => handleSelectChange("jobLocationType", value)} />
                                     </div>
-                                    {/* <RadioGroup
-                                        defaultValue="onsite"
-                                        onValueChange={(value) => handleSelectChange("jobLocationType", value)}
-                                    >
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-                                            <div className="flex items-center space-x-2">
-                                                <RadioGroupItem value="onsite" id="onsite" />
-                                                <Label htmlFor="onsite">Onsite</Label>
-                                            </div>
-                                            <div className="flex items-center space-x-2">
-                                                <RadioGroupItem value="hybrid" id="hybrid" />
-                                                <Label htmlFor="hybrid">Hybrid</Label>
-                                            </div>
-                                            <div className="flex items-center space-x-2">
-                                                <RadioGroupItem value="remote" id="remote" />
-                                                <Label htmlFor="remote">Remote</Label>
-                                            </div>
-                                            <div className="flex items-center space-x-2">
-                                                <RadioGroupItem value="travel" id="travel" />
-                                                <Label htmlFor="travel">Travel required more than 50%</Label>
-                                            </div>
-                                        </div>
-                                    </RadioGroup> */}
                                 </div>
 
-                                {formData.jobLocationType === "onsite" || formData.jobLocationType === "hybrid" ? (
+                                {formData.jobLocationType === "OnSite" || formData.jobLocationType === "Hybrid" ? (
                                     <div className="space-y-2">
-                                        <Label htmlFor="jobLocation">Job Location for on-site/hybrid roles</Label>
+                                        <Label htmlFor="jobLocation">Job location for on-site/hybrid roles</Label>
                                         <Input
                                             id="jobLocation"
                                             name="jobLocation"
-                                            value={formData.jobLocation}
+                                            value={formData?.jobLocation}
                                             onChange={handleInputChange}
-                                            placeholder="e.g. New York, NY"
+                                            placeholder="e.g. New York"
                                         />
                                     </div>
                                 ) : null}
 
-                                {formData.jobLocationType === "hybrid" && (
+                                {formData.jobLocationType === "Hybrid" && (
                                     <div className="space-y-2">
-                                        <Label htmlFor="hybridDetails">Hybrid Details</Label>
+                                        <Label htmlFor="hybridDetails">Hybrid details</Label>
                                         <Input
                                             id="hybridDetails"
                                             name="hybridDetails"
@@ -332,92 +342,130 @@ function JobPostMain() {
                                         />
                                     </div>
                                 )}
+
+                                <div className="space-y-2">
+                                    <Label>Salary range</Label>
+                                    <div className="flex gap-2 flex-wrap">
+                                        <div className="w-1/3">
+                                            <Label htmlFor="minSalary">Minimum</Label>
+                                            <Input
+                                                id="minSalary"
+                                                name="minSalary"
+                                                type="number"
+                                                value={formData.minSalary}
+                                                onChange={handleInputChange}
+                                                placeholder="e.g. 450000"
+                                                className="w-1/3"
+                                            />
+                                        </div>
+                                        <div className="w-1/3">
+                                            <Label htmlFor="maxSalary">Maximum</Label>
+                                            <Input
+                                                id="maxSalary"
+                                                name="maxSalary"
+                                                type="number"
+                                                value={formData.maxSalary}
+                                                onChange={handleInputChange}
+                                                placeholder="e.g. 600000"
+                                                className="w-1/3"
+                                            />
+                                        </div>
+                                        <div className="w-1/3">
+                                            <Label htmlFor="currency">Currency</Label>
+                                            <Select id='currency'>
+                                                <SelectTrigger className="w-[180px]">
+                                                    <SelectValue placeholder="Select currency" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        <SelectLabel>Select currency</SelectLabel>
+                                                        <SelectItem value="inr">Indian Rupees (INR)</SelectItem>
+                                                        <SelectItem value="cad">US Dollor (USD)</SelectItem>
+                                                        <SelectItem value="eur">Euro (EUR)</SelectItem>
+                                                        <SelectItem value="sgd">Singapore Dollar (SGD)</SelectItem>
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="w-1/3">
+                                            <Label htmlFor="salaryRate">Rate</Label>
+                                            <Select id='salaryRate'>
+                                                <SelectTrigger className="w-[180px]">
+                                                    <SelectValue placeholder="Select rate" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        <SelectLabel>Select rate</SelectLabel>
+                                                        <SelectItem value="apple">Per year</SelectItem>
+                                                        <SelectItem value="banana">Per month</SelectItem>
+                                                        <SelectItem value="blueberry">Per hour</SelectItem>
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
                             </div>
                         )}
 
                         {currentStep === 3 && (
                             <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <Label htmlFor="experience">Technical skills Required</Label>
-                                    {/* <Select
-                                        onValueChange={(value) => handleSelectChange("experience", value)}
-                                        value={formData.experience}
-                                    >
-                                        <SelectTrigger id="experience">
-                                            <SelectValue placeholder="Select experience level" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="entry">Entry Level (0-2 years)</SelectItem>
-                                            <SelectItem value="mid">Mid Level (3-5 years)</SelectItem>
-                                            <SelectItem value="senior">Senior Level (5-8 years)</SelectItem>
-                                            <SelectItem value="expert">Expert Level (8+ years)</SelectItem>
-                                        </SelectContent>
-                                    </Select> */}
-                                </div>
+                                <SkillSelector />
 
-                                <div className="space-y-2">
-                                    <Label>Add Skills</Label>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-                                        {/* <div className="flex items-center space-x-2">
-                                            <Checkbox id="skill-javascript" />
-                                            <label
-                                                htmlFor="skill-javascript"
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                JavaScript
-                                            </label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            <Checkbox id="skill-react" />
-                                            <label
-                                                htmlFor="skill-react"
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                React
-                                            </label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            <Checkbox id="skill-node" />
-                                            <label
-                                                htmlFor="skill-node"
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                Node.js
-                                            </label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            <Checkbox id="skill-typescript" />
-                                            <label
-                                                htmlFor="skill-typescript"
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                TypeScript
-                                            </label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            <Checkbox id="skill-python" />
-                                            <label
-                                                htmlFor="skill-python"
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                Python
-                                            </label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            <Checkbox id="skill-java" />
-                                            <label
-                                                htmlFor="skill-java"
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                Java
-                                            </label>
-                                        </div> */}
+                                <div className="space-y-2 flex items-end gap-2">
+                                    <div>
+                                        <Label htmlFor="addNewSkill">Add new skill</Label>
+                                        <Input
+                                            id="addNewSkill"
+                                            name="addNewSkill"
+                                            value={formData.addNewSkill}
+                                            onChange={handleInputChange}
+                                            className="flex-1"
+                                            placeholder="Javascript"
+                                        />
+                                    </div>
+                                    <div>
+                                        <Button className="m-0">Add</Button>
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
+                                    <Label htmlFor="experience">Overall professional experience in years</Label>
+                                    <Input
+                                        id="experience"
+                                        name="experience"
+                                        value={formData.experience}
+                                        onChange={handleInputChange}
+                                        placeholder="Professional experience"
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="jobDescription">Role description</Label>
+                                    <textarea
+                                        id="jobDescription"
+                                        name="jobDescription"
+                                        value={formData.jobDescription}
+                                        onChange={(e) => setFormData((prev) => ({ ...prev, jobDescription: e.target.value }))}
+                                        placeholder="Describe the role and responsibilities"
+                                        className="flex h-32 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="managerEmail">Hiring manager email</Label>
+                                    <Input
+                                        id="managerEmail"
+                                        name="managerEmail"
+                                        value={formData.managerEmail}
+                                        onChange={handleInputChange}
+                                        placeholder="e.g. your@email.com"
+                                    />
+                                </div>
+                                {/* <div className="space-y-2">
                                     <Label htmlFor="education">Education Requirements</Label>
-                                    {/* <Select onValueChange={(value) => handleSelectChange("education", value)} value={formData.education}>
+                                    <Select onValueChange={(value) => handleSelectChange("education", value)} value={formData.education}>
                                         <SelectTrigger id="education">
                                             <SelectValue placeholder="Select education level" />
                                         </SelectTrigger>
@@ -429,21 +477,55 @@ function JobPostMain() {
                                             <SelectItem value="phd">PhD or Doctorate</SelectItem>
                                             <SelectItem value="none">No Specific Requirement</SelectItem>
                                         </SelectContent>
-                                    </Select> */}
-                                </div>
+                                    </Select>
+                                </div> */}
                             </div>
                         )}
 
                         {currentStep === 4 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="salary">Team description</Label>
+                                    <Label htmlFor="teamDescription">Team description</Label>
+                                    <textarea
+                                        id="teamDescription"
+                                        name="teamDescription"
+                                        value={formData.teamDescription}
+                                        onChange={(e) => setFormData((prev) => ({ ...prev, teamDescription: e.target.value }))}
+                                        placeholder="Describe the role and responsibilities"
+                                        className="flex h-32 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="growth">Growth/Progression path</Label>
+                                    <textarea
+                                        id="growth"
+                                        name="growth"
+                                        value={formData.growth}
+                                        onChange={(e) => setFormData((prev) => ({ ...prev, growth: e.target.value }))}
+                                        placeholder="Describe growth/Progression path"
+                                        className="flex h-32 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="interviewProcess">Interview Process Overview</Label>
+                                    <textarea
+                                        id="interviewProcess"
+                                        name="interviewProcess"
+                                        value={formData.interviewProcess}
+                                        onChange={(e) => setFormData((prev) => ({ ...prev, interviewProcess: e.target.value }))}
+                                        placeholder="Describe the role and responsibilities"
+                                        className="flex h-32 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="qualification">Qualification</Label>
                                     <Input
-                                        id="salary"
-                                        name="salary"
-                                        value={formData.salary}
+                                        id="qualification"
+                                        name="qualification"
+                                        value={formData.qualification}
                                         onChange={handleInputChange}
-                                        placeholder=""
+                                        placeholder="e.g. BE"
                                     />
                                 </div>
 
@@ -451,7 +533,7 @@ function JobPostMain() {
                                     <Label>Benefits</Label>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                                         <div className="flex items-center space-x-2">
-                                            {/* <Checkbox id="benefit-health" /> */}
+                                            <input type="checkbox" id="benefit-health" />
                                             <label
                                                 htmlFor="benefit-health"
                                                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -460,53 +542,53 @@ function JobPostMain() {
                                             </label>
                                         </div>
                                         <div className="flex items-center space-x-2">
-                                            {/* <Checkbox id="benefit-dental" /> */}
+                                            <input type="checkbox" id="maternityLeave" />
                                             <label
-                                                htmlFor="benefit-dental"
+                                                htmlFor="maternityLeave"
                                                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                             >
-                                                Dental Insurance
+                                                Maternity leave
                                             </label>
                                         </div>
                                         <div className="flex items-center space-x-2">
-                                            {/* <Checkbox id="benefit-vision" /> */}
+                                            <input type="checkbox" id="adoptionSupport" />
                                             <label
-                                                htmlFor="benefit-vision"
+                                                htmlFor="adoptionSupport"
                                                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                             >
-                                                Vision Insurance
+                                                Adoption funding support
                                             </label>
                                         </div>
                                         <div className="flex items-center space-x-2">
-                                            {/* <Checkbox id="benefit-401k" /> */}
+                                            <input type="checkbox" id="remoteWorkOnRequest" />
                                             <label
-                                                htmlFor="benefit-401k"
+                                                htmlFor="remoteWorkOnRequest"
                                                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                             >
-                                                401(k) Plan
+                                                Remote work option upon request
                                             </label>
                                         </div>
                                         <div className="flex items-center space-x-2">
-                                            {/* <Checkbox id="benefit-pto" /> */}
+                                            <input type="checkbox" id="shareOptions" />
                                             <label
-                                                htmlFor="benefit-pto"
+                                                htmlFor="shareOptions"
                                                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                             >
-                                                Paid Time Off
-                                            </label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            {/* <Checkbox id="benefit-remote" /> */}
-                                            <label
-                                                htmlFor="benefit-remote"
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                Remote Work Options
+                                                Share options
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-
+                                <div className="space-y-2">
+                                    <Label htmlFor="additionalBenefit">Additional benefits</Label>
+                                    <Input
+                                        id="additionalBenefit"
+                                        name="additionalBenefit"
+                                        value={formData.additionalBenefit}
+                                        onChange={handleInputChange}
+                                        placeholder="Enter benefits separated by comma."
+                                    />
+                                </div>
                                 {/* <div className="space-y-2">
                                     <Label htmlFor="applicationDeadline">Application Deadline</Label>
                                     <Input
