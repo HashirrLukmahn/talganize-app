@@ -32,7 +32,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "server": "vite preview",
+    "serve": "vite preview",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
