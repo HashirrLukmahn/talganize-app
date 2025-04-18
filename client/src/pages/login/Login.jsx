@@ -65,6 +65,12 @@ function Login() {
         flow: 'auth-code'
     })
 
+    const testLogin = (e) => {
+        e.preventDefault()
+        localStorage.setItem('user', JSON.stringify(Constants.defaultUser.user))
+        localStorage.setItem('token', Constants.defaultUser.token)
+        navigate(Constants.Jobs)
+    }
 
     const emailLogin = async (e) => {
         e.preventDefault()
@@ -187,6 +193,7 @@ function Login() {
 
                             <Button type='submit' className='w-full mt-6'>Sign in</Button>
                         </form>
+                        <Button onClick={testLogin} type='submit' className='w-full mt-6'>Test sign in</Button>
 
                     </div>
 

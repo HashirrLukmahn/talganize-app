@@ -48,7 +48,7 @@ const SkillSelector = ({ addSkill }) => {
 
     return (
         <div className="w-full">
-            <Label>Select skills</Label>
+            <Label required>Select skills</Label>
             {/* {JSON.stringify(selectedSkills, null, 2)} */}
             <div className=" justify-between items-center gap-2 mt-2">
                 {/* Skill Selection Dropdowns */}

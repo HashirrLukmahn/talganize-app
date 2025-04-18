@@ -23,7 +23,7 @@ function AppRoutes() {
                 <Route path={Constants.ForgotPassword} element={<ForgotPassword pageType="ForgotPassword" />} />
                 <Route path={Constants.ResetPassword} element={<ResetPassword pageType="ResetPassword" />} />
                 <Route path={Constants.Jobs} element={<Content pageType="Content" />} />
-
+                <Route path={Constants.JobPost} element={<JobPostMain />} />
 
                 <Route element={<ProtectedRoute allowedRoles={['JobSeeker']} />}>
                     <Route path={Constants.Profile} element={<Profile />} />
@@ -31,7 +31,7 @@ function AppRoutes() {
                 </Route>
 
                 <Route element={<ProtectedRoute allowedRoles={['Employer']} />}>
-                    <Route path={Constants.JobPost} element={<JobPostMain />} />
+
                 </Route>
             </Routes>
         </BrowserRouter>

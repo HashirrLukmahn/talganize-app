@@ -3,6 +3,18 @@
 export const BASE_URL = "http://localhost:8080/api" //LOCAL SERVER URL
 
 
+export const defaultUser = {
+    status: true,
+    user: {
+        first_name: "Praveen",
+        last_Name: "H",
+        email: "praveen@talganize.com",
+        type_name: 'JobSeeker',
+        user_type_id: 1
+    },
+    token: "TestUserToken"
+}
+
 
 // "homepage": "https://Talganize.github.io/talganize-app/",
 
