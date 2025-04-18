@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../ui-components/Button'
 import Navbar from '../navbar/Navbar'
 import { Plus, Trash2 } from 'lucide-react';
@@ -7,16 +7,28 @@ import Input from '../ui-components/Input';
 
 function Profile() {
 
+    const [user, setUser] = useState('')
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('user'))
+        setUser(userInfo)
+    }, [])
 
 
     // Experience
     const [experiences, setExperiences] = useState([
-        { id: Date.now(), company: '', jobTitle: '', from: '', to: '' },
+        { id: Date.now(), company: '', jobTitle: '', from: '', to: '', country: '', responsibility: '' },
     ]);
 
     const addExperience = () => {
         setExperiences([...experiences, { id: Date.now(), company: '', jobTitle: '', from: '', to: '' }]);
     };
+
+    // const handleExperiencechange = (id, field, value)=>{
+    //     setExperiences((prev)=>{
+    //         prev.map(exp)
+    //     })
+    // }
 
     const removeExperience = (id) => {
         setExperiences(experiences.filter((exp) => exp.id !== id));
@@ -52,13 +64,18 @@ function Profile() {
                             <label className='text-sm font-semibold'>First Name</label>
                             <Input
                                 type='text'
-                                placeholder='First Name' />
+                                placeholder='First Name'
+                                value={user?.first_name}
+                            />
                         </div>
                         <div className='w-full sm:w-1/2'>
                             <label className='text-sm font-semibold'>Last Name</label>
                             <Input
                                 type='text'
-                                placeholder='Last Name' />
+                                placeholder='Last Name'
+                                value={user?.last_name}
+                            />
+
                         </div>
                     </div>
 
@@ -67,13 +84,17 @@ function Profile() {
                             <label className='text-sm font-semibold'>Email Id</label>
                             <Input
                                 type='text'
-                                placeholder='Email Id' />
+                                placeholder='Email Id'
+                                value={user?.email}
+                            />
                         </div>
                         <div className='w-full sm:w-1/2'>
                             <label className='text-sm font-semibold'>Phone Number</label>
                             <Input
                                 type='text'
-                                placeholder='Phone Number' />
+                                placeholder='Phone Number'
+                                value={user?.phone}
+                            />
                         </div>
                     </div>
 
