@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { carouselImages } from '../../assets/images'
 import { Link } from 'react-scroll'
-import { Badge, Building2, MapPin } from 'lucide-react';
+import { Building2, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import * as AppRoutes from '../../app-routes/AppRoutes'
+import * as AppRoutes from '../../app-routes/Constants'
+import { Badge } from "@/components/ui/badge"
+import { jobs } from '../../assets/testData'
 function Carousel() {
 
     const navigate = useNavigate()
@@ -77,22 +79,30 @@ function Carousel() {
                 <div className="bg-gray-50 p-6 overflow-auto max-h-[calc(100vh-4rem)]">
                     <h2 className="text-xl font-semibold mb-6">Latest Job Openings</h2>
                     <div className="space-y-4">
-                        {[1, 2, 3, 4, 5].map((i) => (
-                            <div key={i} className="p-4 hover:shadow-lg transition-shadow rounded-xl ring-1 shadow-md ring-gray-200">
+                        {jobs.slice(0, 5).map((item, index) => (
+                            <div key={index} className="p-4 hover:shadow-lg transition-shadow rounded-xl ring-1 shadow-md ring-gray-200">
                                 <div className="flex items-start justify-between mb-2">
                                     <div>
                                         <div className="flex items-center gap-2 mb-1">
                                             <Building2 className="h-4 w-4 text-gray-500" />
-                                            <span className="text-sm text-gray-600">Amazon</span>
+                                            <span className="text-sm text-gray-600">{item.company.name}</span>
                                         </div>
-                                        <h3 className="font-semibold text-lg">Data Scientist</h3>
+                                        <h3 className="font-semibold text-lg">{item.job.title}</h3>
                                     </div>
-                                    <span className="text-sm text-gray-500">5 Days ago</span>
+                                    <span className="text-sm text-gray-500">{item.company.updatedDaysAgo} Days ago</span>
                                 </div>
                                 <div className="flex flex-wrap gap-2 mb-3">
-                                    <Badge variant="secondary">Programming</Badge>
-                                    <Badge variant="secondary">Machine Learning</Badge>
-                                    <Badge variant="secondary">AI</Badge>
+                                    {
+                                        item.job.skills.slice(0, 2).map((skill, index) => (
+                                            <Badge key={index} variant="outline">{skill.skill} • {skill.experience} y</Badge>
+                                        ))
+                                    }
+                                    {
+                                        item.job.skills.length > 2 && (<span className='text-sm'>more..</span>)
+                                    }
+                                    {/* <Badge variant="outline">{item.}</Badge>
+                                    <Badge variant="outline">Machine Learning</Badge>
+                                    <Badge variant="outline">AI</Badge> */}
                                 </div>
                                 <div className="flex items-center justify-between text-sm">
                                     <div className="flex items-center gap-1 text-gray-600">

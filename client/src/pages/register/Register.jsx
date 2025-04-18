@@ -1,10 +1,99 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../../components/ui-components/Button'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/images/Talganize.svg'
-import * as AppRoutes from '../../app-routes/AppRoutes'
+import * as AppRoutes from '../../app-routes/Constants'
+import Label from '@/components/ui-components/Label';
+import Swal from 'sweetalert2';
+import { registerWithEmail } from '@/services/authService';
+// import authService from '../../services/authService'
 
 function Register() {
+
+    const [email, setEmail] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [middleName, setMiddleName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [password, setPassword] = useState('')
+    const [repeatPassword, setRepeatPassword] = useState('')
+    const navigate = useNavigate()
+
+
+    const registerUser = async (e) => {
+
+        e.preventDefault()
+
+        if (lastName.trim() === "" || firstName.trim() === "" || email.trim() === "" || password.trim() === "" || repeatPassword.trim() === "") {
+
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Inputs marked with * are mandatory.",
+                text: "Please try again.",
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true
+            })
+
+            return
+
+        }
+        if (password !== repeatPassword) {
+
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Password doesn't match.",
+                text: "Please try again.",
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true
+            })
+            return
+        }
+
+        let data = {
+            firstName: firstName,
+            middleName: middleName,
+            lastName: lastName,
+            email: email,
+            password: password,
+            userType: "JobSeeker"
+        }
+
+        try {
+
+            let response = await registerWithEmail(data)
+
+            if (response.status) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Check your inbox.",
+                    text: "Verify your email.",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true
+                })
+            }
+
+
+        } catch (error) {
+            if (error.status === 400) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "warning",
+                    title: "Email already exists.",
+                    text: "Please login.",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true
+                })
+            }
+            console.log('Error', error?.message)
+        }
+
+    }
 
 
     return (
@@ -53,35 +142,75 @@ function Register() {
                     </div> */}
 
                     <div className='mt-4 mb-4'>
-                        <label className="font-medium">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            required
-                            placeholder='Enter your e-mail'
-                            className="w-full mt-2 px-3 py-2 mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
-                        />
-                        <label className="font-medium">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            required
-                            placeholder='Enter password'
-                            className="w-full mt-2 px-3 py-2  mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
-                        />
-                        <label className="font-medium">
-                            Re-enter Password
-                        </label>
-                        <input
-                            type="password"
-                            required
-                            placeholder='Enter password'
-                            className="w-full mt-2 px-3 py-2  mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
-                        />
+                        <form onSubmit={registerUser}>
+                            <Label required className="font-medium">
+                                First Name
+                            </Label>
+                            <input
+                                onChange={(e) => setFirstName(e.target.value)}
+                                value={firstName}
+                                type="text"
+                                required
+                                placeholder='Enter your first name'
+                                className="w-full mt-2 px-3 py-2 mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
+                            />
+                            <Label className="font-medium">
+                                Middle Name
+                            </Label>
+                            <input
+                                onChange={(e) => setMiddleName(e.target.value)}
+                                value={middleName}
+                                type="text"
+                                placeholder='Enter your first name'
+                                className="w-full mt-2 px-3 py-2 mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
+                            />
+                            <Label required className="font-medium">
+                                Last Name
+                            </Label>
+                            <input
+                                onChange={(e) => setLastName(e.target.value)}
+                                value={lastName}
+                                type="text"
+                                required
+                                placeholder='Enter your first name'
+                                className="w-full mt-2 px-3 py-2 mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
+                            />
+                            <Label required className="font-medium">
+                                Email
+                            </Label>
+                            <input
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                                type="email"
+                                required
+                                placeholder='Enter your e-mail'
+                                className="w-full mt-2 px-3 py-2 mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
+                            />
+                            <Label required className="font-medium">
+                                Password
+                            </Label>
+                            <input
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                                type="password"
+                                required
+                                placeholder='Enter password'
+                                className="w-full mt-2 px-3 py-2  mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
+                            />
+                            <Label required className="font-medium">
+                                Re-enter Password
+                            </Label>
+                            <input
+                                onChange={(e) => setRepeatPassword(e.target.value)}
+                                value={repeatPassword}
+                                type="password"
+                                required
+                                placeholder='Enter password'
+                                className="w-full mt-2 px-3 py-2  mb-6 text-gray-500 bg-transparent outline-none border border-gray-light focus:border-talgan-green shadow-sm rounded-lg"
+                            />
 
-                        <Button className='w-full'>Sign Up</Button>
+                            <Button className='w-full'>Sign Up</Button>
+                        </form>
                     </div>
 
                     <div className='w-full flex justify-center'>

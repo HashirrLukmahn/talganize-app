@@ -1,4 +1,3 @@
-"use client"
 import Button from "./Button"
 import { Bookmark, BookmarkCheck, Clock, DollarSign, MapPin } from "lucide-react"
 import { useEffect, useState } from "react"

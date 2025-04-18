@@ -11,6 +11,7 @@ import { Briefcase, Building, FileText, User } from "lucide-react"
 import ButtonSelector from "../ui-components/ButtonSelector"
 import SkillSelector from "../ui-components/SkillSelector"
 
+
 function JobPostMain() {
     const [currentStep, setCurrentStep] = useState(1)
     const [formData, setFormData] = useState({
@@ -27,6 +28,8 @@ function JobPostMain() {
         jobDescription: "",
         jobLocation: "",
         jobLocationType: "",
+        travelRequired: false,
+        travelRequiredDetails: "",
         hybridDetails: "",
 
         // Requirements
@@ -37,35 +40,30 @@ function JobPostMain() {
         // Additional info
         minSalary: "",
         maxSalary: "",
+        currency: "",
         salaryRate: "",
         benefits: [],
         applicationDeadline: "",
     })
 
-    const suggestedSkills = [
-        { name: "AWS" },
-        { name: "Microservices" },
-        { name: "AWS Certification" },
-    ];
-
-    const availableSkills = ["MySQL", "MongoDB", "JavaScript", "React", "Python"];
-
-
-    const handleSkillSelect = (skillData) => {
-        setSelectedSkills((prev) => [...prev, skillData]);
-    };
-
-
-
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target
+        let { name, value } = e?.target
+        value = name === "travelRequired" ? e?.target.checked : value
+        value = name === "currency" ? e.target.checked : value
+        console.log('currency', e);
+
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
     const handleSelectChange = (name, value) => {
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
+
+
+    const handleSkillSelect = (name, value) => {
+        setFormData((prev) => ({ ...prev, [name]: value }))
+    };
 
     const nextStep = () => {
         if (currentStep < 4) {
@@ -123,10 +121,11 @@ function JobPostMain() {
             </div>
             <div className="max-w-4xl   text-left  mx-auto">
 
-                {/* {JSON.stringify(formData, null, 2)} */}
+
 
                 {/* Form Cards */}
                 <div className="rounded-xl mt-4 ring-1 shadow-md hover:shadow-xl ring-slate-200 transition-shadow shadow-black/5 ring-slate-700/10 text-slate-700 p-6 text-left bg-white relative">
+                    {JSON.stringify(formData, null, 2)}
                     <div className="mb-6">
                         <p className="text-subheading font-subheading text-primary">{steps[currentStep - 1].name}</p>
                         <div>
@@ -212,19 +211,28 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label id='companyLocation'>Company office location</Label>
-                                    <Select id='companyLocation' onValueChange={(value) => handleSelectChange("companyLocation", value)}>
-                                        <SelectTrigger className="w-[180px]">
-                                            <SelectValue placeholder="Select Location" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectGroup>
-                                                <SelectLabel>Select Location</SelectLabel>
-                                                <SelectItem value="remote">Remote</SelectItem>
-                                                <SelectItem value="onsite">Onsite</SelectItem>
-                                            </SelectGroup>
-                                        </SelectContent>
-                                    </Select>
+                                    <div className=" flex gap-4">
+                                        <div className="flex-1 space-y-2">
+                                            <Label htmlFor='companyCountry'>Country</Label>
+                                            <Input
+                                                id="companyCountry"
+                                                name="companyCountry"
+                                                value={formData.companyCountry}
+                                                onChange={handleInputChange}
+                                                placeholder="Enter company's country."
+                                            />
+                                        </div>
+                                        <div className="flex-1 space-y-2">
+                                            <Label htmlFor='companyCity'>City</Label>
+                                            <Input
+                                                id="companyCity"
+                                                name="companyCity"
+                                                value={formData.companyCity}
+                                                onChange={handleInputChange}
+                                                placeholder="Enter company's city."
+                                            />
+                                        </div>
+                                    </div>
                                     {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                                         <select className="border p-2 bg-lightbg">
                                             <option value="Remote">Remote</option >
@@ -343,6 +351,29 @@ function JobPostMain() {
                                     </div>
                                 )}
 
+                                <div className="flex gap-4">
+                                    <input
+                                        id="travelRequired"
+                                        name="travelRequired"
+                                        type="checkbox"
+                                        checked={formData.travelRequired}
+                                        onChange={handleInputChange}
+                                    />
+                                    <Label htmlFor="travelRequired">Is this position involves travel?</Label>
+                                </div>
+                                {formData.travelRequired === true && (
+                                    <div className="space-y-2">
+                                        <Label htmlFor="travelRequiredDetails">Travel details</Label>
+                                        <textarea
+                                            id="travelRequiredDetails"
+                                            name="travelRequiredDetails"
+                                            value={formData.travelRequiredDetails}
+                                            onChange={handleInputChange}
+                                            placeholder=""
+                                            className="flex h-20 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                        />
+                                    </div>
+                                )}
                                 <div className="space-y-2">
                                     <Label>Salary range</Label>
                                     <div className="flex gap-2 flex-wrap">
@@ -372,33 +403,33 @@ function JobPostMain() {
                                         </div>
                                         <div className="w-1/3">
                                             <Label htmlFor="currency">Currency</Label>
-                                            <Select id='currency'>
+                                            <Select id='currency' onValueChange={(value) => handleSelectChange("currency", value)}>
                                                 <SelectTrigger className="w-[180px]">
                                                     <SelectValue placeholder="Select currency" />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectGroup>
                                                         <SelectLabel>Select currency</SelectLabel>
-                                                        <SelectItem value="inr">Indian Rupees (INR)</SelectItem>
-                                                        <SelectItem value="cad">US Dollor (USD)</SelectItem>
-                                                        <SelectItem value="eur">Euro (EUR)</SelectItem>
-                                                        <SelectItem value="sgd">Singapore Dollar (SGD)</SelectItem>
+                                                        <SelectItem value="INR">Indian Rupees (INR)</SelectItem>
+                                                        <SelectItem value="USD">US Dollor (USD)</SelectItem>
+                                                        <SelectItem value="EUR">Euro (EUR)</SelectItem>
+                                                        <SelectItem value="SGD">Singapore Dollar (SGD)</SelectItem>
                                                     </SelectGroup>
                                                 </SelectContent>
                                             </Select>
                                         </div>
                                         <div className="w-1/3">
                                             <Label htmlFor="salaryRate">Rate</Label>
-                                            <Select id='salaryRate'>
+                                            <Select id='salaryRate' onValueChange={(value) => handleSelectChange("salaryRate", value)}>
                                                 <SelectTrigger className="w-[180px]">
                                                     <SelectValue placeholder="Select rate" />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectGroup>
                                                         <SelectLabel>Select rate</SelectLabel>
-                                                        <SelectItem value="apple">Per year</SelectItem>
-                                                        <SelectItem value="banana">Per month</SelectItem>
-                                                        <SelectItem value="blueberry">Per hour</SelectItem>
+                                                        <SelectItem value="PerYear">Per year</SelectItem>
+                                                        <SelectItem value="PerMonth">Per month</SelectItem>
+                                                        <SelectItem value="PerHour">Per hour</SelectItem>
                                                     </SelectGroup>
                                                 </SelectContent>
                                             </Select>
@@ -412,7 +443,7 @@ function JobPostMain() {
 
                         {currentStep === 3 && (
                             <div className="space-y-6">
-                                <SkillSelector />
+                                <SkillSelector addSkill={(value) => handleSkillSelect('skills', value)} />
 
                                 <div className="space-y-2 flex items-end gap-2">
                                     <div>

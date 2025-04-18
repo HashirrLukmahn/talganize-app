@@ -12,7 +12,6 @@ function Content() {
     const [open, setOpen] = useState(false);
     const location = useLocation()
 
-    console.log('param', location.pathname.split('/'))
 
     useEffect(() => {
         let jobid = location.pathname.split('/')

@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../../components/ui-components/Button'
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/Talganize.svg'
-import * as AppRoutes from '../../app-routes/AppRoutes'
+// import * as AppRoutes from '../../app-routes/Constants'
 
 function ForgotPassword() {
 

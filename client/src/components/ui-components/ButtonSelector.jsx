@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const locations = ["OnSite", "Hybrid", "Remote", "Travel required"];
+const locations = ["OnSite", "Hybrid", "Remote"];
 
 function ButtonSelector({ onSelect }) {
     const [selected, setSelected] = useState(null);
@@ -15,7 +15,7 @@ function ButtonSelector({ onSelect }) {
             {locations.map((location) => (
                 <button
                     key={location}
-                    className={`px-2 w-1/3 py-2 font-medium rounded-lg transition-all
+                    className={`px-2 w-1/4 py-2 font-medium rounded-lg transition-all
             ${selected === location
                             ? "bg-primary text-white shadow-md"
                             : "bg-secondary text-white hover:bg-primary"

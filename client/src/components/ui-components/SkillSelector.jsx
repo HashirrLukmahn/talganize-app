@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import Label from "./Label";
 
 
-const SkillSelector = () => {
+const SkillSelector = ({ addSkill }) => {
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [newSkill, setNewSkill] = useState("");
 
@@ -27,6 +27,7 @@ const SkillSelector = () => {
             setSkill("");
             setRequired("");
             setExpertise("");
+            addSkill(selectedSkills)
         }
     };
 
@@ -48,6 +49,7 @@ const SkillSelector = () => {
     return (
         <div className="w-full">
             <Label>Select skills</Label>
+            {/* {JSON.stringify(selectedSkills, null, 2)} */}
             <div className=" justify-between items-center gap-2 mt-2">
                 {/* Skill Selection Dropdowns */}
                 <div className="flex gap-2 mb-4 w-full flex-wrap ">
