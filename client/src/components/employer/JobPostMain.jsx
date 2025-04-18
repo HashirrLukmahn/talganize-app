@@ -125,7 +125,7 @@ function JobPostMain() {
 
                 {/* Form Cards */}
                 <div className="rounded-xl mt-4 ring-1 shadow-md hover:shadow-xl ring-slate-200 transition-shadow shadow-black/5 ring-slate-700/10 text-slate-700 p-6 text-left bg-white relative">
-                    {JSON.stringify(formData, null, 2)}
+                    {/* {JSON.stringify(formData, null, 2)} */}
                     <div className="mb-6">
                         <p className="text-subheading font-subheading text-primary">{steps[currentStep - 1].name}</p>
                         <div>
@@ -139,7 +139,7 @@ function JobPostMain() {
                         {currentStep === 1 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="companyName">Company name</Label>
+                                    <Label required htmlFor="companyName">Company name</Label>
                                     <Input
                                         id="companyName"
                                         name="companyName"
@@ -150,7 +150,7 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="companyWebsite">Company website</Label>
+                                    <Label required htmlFor="companyWebsite">Company website</Label>
                                     <Input
                                         id="companyWebsite"
                                         name="companyWebsite"
@@ -161,7 +161,7 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="companyLinkedIn">Company's linkedIn URL</Label>
+                                    <Label required htmlFor="companyLinkedIn">Company's linkedIn URL</Label>
                                     <Input
                                         id="companyLinkedIn"
                                         name="companyLinkedIn"
@@ -172,7 +172,7 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="companyIndustry">Company industry</Label>
+                                    <Label required htmlFor="companyIndustry">Company industry</Label>
                                     <Select id='companyIndustry' onValueChange={(value) => handleSelectChange("companyIndustry", value)}>
                                         <SelectTrigger className="w-[180px]">
                                             <SelectValue placeholder="Select Industry" />
@@ -213,7 +213,7 @@ function JobPostMain() {
                                 <div className="space-y-2">
                                     <div className=" flex gap-4">
                                         <div className="flex-1 space-y-2">
-                                            <Label htmlFor='companyCountry'>Country</Label>
+                                            <Label required htmlFor='companyCountry'>Country</Label>
                                             <Input
                                                 id="companyCountry"
                                                 name="companyCountry"
@@ -223,7 +223,7 @@ function JobPostMain() {
                                             />
                                         </div>
                                         <div className="flex-1 space-y-2">
-                                            <Label htmlFor='companyCity'>City</Label>
+                                            <Label required htmlFor='companyCity'>City</Label>
                                             <Input
                                                 id="companyCity"
                                                 name="companyCity"
@@ -292,7 +292,7 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="signinemail">Sign in e-mail address</Label>
+                                    <Label required htmlFor="signinemail">Sign in e-mail address</Label>
                                     <Input
                                         id="signinemail"
                                         name="signinemail"
@@ -308,7 +308,7 @@ function JobPostMain() {
                         {currentStep === 2 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="jobTitle">Job title</Label>
+                                    <Label required htmlFor="jobTitle">Job title</Label>
                                     <Input
                                         id="jobTitle"
                                         name="jobTitle"
@@ -319,7 +319,7 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label>Job location type</Label>
+                                    <Label required>Job location type</Label>
                                     <div>
                                         <ButtonSelector onSelect={(value) => handleSelectChange("jobLocationType", value)} />
                                     </div>
@@ -375,7 +375,7 @@ function JobPostMain() {
                                     </div>
                                 )}
                                 <div className="space-y-2">
-                                    <Label>Salary range</Label>
+                                    <Label required>Salary range</Label>
                                     <div className="flex gap-2 flex-wrap">
                                         <div className="w-1/3">
                                             <Label htmlFor="minSalary">Minimum</Label>
@@ -447,7 +447,7 @@ function JobPostMain() {
 
                                 <div className="space-y-2 flex items-end gap-2">
                                     <div>
-                                        <Label htmlFor="addNewSkill">Add new skill</Label>
+                                        <Label required htmlFor="addNewSkill">Add new skill</Label>
                                         <Input
                                             id="addNewSkill"
                                             name="addNewSkill"
@@ -463,7 +463,7 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="experience">Overall professional experience in years</Label>
+                                    <Label required htmlFor="experience">Overall professional experience in years</Label>
                                     <Input
                                         id="experience"
                                         name="experience"
@@ -474,7 +474,7 @@ function JobPostMain() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="jobDescription">Role description</Label>
+                                    <Label required htmlFor="jobDescription">Role description</Label>
                                     <textarea
                                         id="jobDescription"
                                         name="jobDescription"
@@ -485,7 +485,7 @@ function JobPostMain() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="managerEmail">Hiring manager email</Label>
+                                    <Label required htmlFor="managerEmail">Hiring manager email</Label>
                                     <Input
                                         id="managerEmail"
                                         name="managerEmail"
@@ -550,7 +550,7 @@ function JobPostMain() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="qualification">Qualification</Label>
+                                    <Label required htmlFor="qualification">Qualification</Label>
                                     <Input
                                         id="qualification"
                                         name="qualification"

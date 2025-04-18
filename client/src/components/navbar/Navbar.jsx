@@ -90,7 +90,7 @@ function Navbar() {
                             <DropdownMenu>
                                 <DropdownMenuTrigger>For Employers</DropdownMenuTrigger>
                                 <DropdownMenuContent className=''>
-                                    <DropdownMenuItem>Post a job</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => navigate(Constants.JobPost)}>Post a job</DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </li>}
