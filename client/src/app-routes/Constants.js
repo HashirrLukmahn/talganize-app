@@ -1,6 +1,7 @@
 
 
-export const BASE_URL = "http://localhost:8080/api" //LOCAL SERVER URL
+// export const BASE_URL = "http://localhost:8080/api" //LOCAL SERVER URL
+export const BASE_URL = "https://talganize-dev.uc.r.appspot.com/api" //LOCAL SERVER URL
 
 
 export const defaultUser = {

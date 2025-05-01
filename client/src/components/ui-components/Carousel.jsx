@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import * as AppRoutes from '../../app-routes/Constants'
 import { Badge } from "@/components/ui/badge"
 import { jobs } from '../../assets/testData'
+import { NavLink } from 'react-router-dom';
 function Carousel() {
 
     const navigate = useNavigate()
@@ -54,9 +55,9 @@ function Carousel() {
                     <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Talganize</h1>
                     <p className="text-lg md:text-2xl mb-6">Find your dream job with us</p>
 
-                    <Link to="contact-us" smooth={true} duration={300} className="cursor-pointer no-underline bg-talgan-green hover:bg-talgan-green-dark text-white font-bold py-3 px-6 rounded">
+                    <NavLink to="/jobs" className="cursor-pointer no-underline bg-talgan-green hover:bg-talgan-green-dark text-white font-bold py-3 px-6 rounded">
                         Get Started
-                    </Link>
+                    </NavLink>
                 </div>
 
                 {/* Manual Slide Controls */}
