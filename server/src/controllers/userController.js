@@ -86,7 +86,7 @@ exports.loginWithGoogle = async (req, res) => {
         const { given_name, email, family_name, email_verified, picture } = user
 
         const getQuery = `select user.id, user.first_name, user.middle_name, user.last_name, user.user_type_id, user.email, user.phone, userType.type_name 
-                        from users as user Left Join user_types as userType
+                        from users as user Left Join user_type as userType
                         on user.user_type_id = userType.id
                          where email = ?`
 
@@ -133,17 +133,24 @@ exports.loginWithGoogle = async (req, res) => {
 
 }
 
-exports.test = async (req, res) => {
+exports.checkDatabaseConnection = async (req, res) => {
 
-    console.log('db test');
+    const query = 'SELECT 1'
+    const [result, fields] = await db.query(query)
 
-    let email = 'praveen@talganize.com'
+    res.send({
+        status: true,
+        user: result,
+        message: "Databse connected"
+    })
+}
 
-    const query = 'select * from users where email = ?'
-    const result = await db.query(query, [email])
-
-    console.log('res', result);
-
+exports.testServerStatus = async (req, res) => {
+    console.log('server testing.')
+    res.send({
+        status: true,
+        message: "Server is running.."
+    })
 }
 
 exports.googleAuthCallback = async (req, res) => {
@@ -294,7 +301,7 @@ exports.loginUser = async (req, res) => {
 
 
         const getUser = `select user.*, type.type_name from users as user
-                         left join user_types as type on user.user_type_id = type.id where email = ?`
+                         left join user_type as type on user.user_type_id = type.id where email = ?`
 
         let [result, fields] = await db.query(getUser, [email])
 
