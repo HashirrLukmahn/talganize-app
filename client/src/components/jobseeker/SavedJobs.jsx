@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from '../navbar/Navbar'
-import { jobs } from '../../assets/testData'
+import { jobsData } from '../../assets/testData'
 import JobCard from '../ui-components/JobCard'
 import Popup from '../ui-components/Popup';
 
@@ -29,7 +29,7 @@ function SavedJobs() {
             <div className='container flex justify-center items-strech flex-wrap gap-5 mt-4 mx-auto'>
 
                 {
-                    jobs.slice(0, 3).map((job) => {
+                    jobsData.slice(0, 3).map((job) => {
                         return (
                             <JobCard key={job.id} jobDetails={job} openModal={openModal} closeModal={closeModal} />
                         )

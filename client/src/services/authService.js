@@ -1,33 +1,7 @@
 import axiosInstance from "@/api/axiosInstance";
 // import { registerUser, loginUser, googleLogin } from "../api/authApi";
-import { LOGIN_WITH_EMAIL, LOGIN_WITH_GOOGLE, REGISTER_WITH_EMAIL } from "../api/authApi";
+import { LOGIN_WITH_EMAIL, LOGIN_WITH_GOOGLE, REGISTER_WITH_EMAIL, SEND_EMAIL_VERIFICATION_LINK, VERIFY_EMAIL_TOKEN } from "../api/authApi";
 
-
-// // Register user
-// export const register = async (email, password, role) => {
-//     try {
-//         return await registerUser(email, password, role);
-//     } catch (error) {
-//         throw error;
-//     }
-// }
-
-// Login user
-// export const login = async (email, password) => {
-//     try {
-//         const response = await loginUser(email, password);
-
-//         if (response.status === 200) {
-
-//             localStorage.setItem("user", JSON.stringify(response?.data)); // Store user session
-//         }
-//         return response.data;
-
-//     } catch (error) {
-
-//         throw error;
-//     }
-// }
 
 // Login user
 export const loginWithGoogle = async (code) => {
@@ -65,6 +39,28 @@ export const loginWithEmail = async (data) => {
         throw error || "Login failed";
     }
 }
+
+export const verifyEmailToken = async (data) => {
+    try {
+
+        const result = await axiosInstance.post(VERIFY_EMAIL_TOKEN, data)
+        return result.data;
+
+    } catch (error) {
+        throw error || "Email failed.";
+    }
+}
+export const sendEmailVerificationLink = async (data) => {
+    try {
+
+        const result = await axiosInstance.post(SEND_EMAIL_VERIFICATION_LINK, data)
+        return result.data;
+
+    } catch (error) {
+        throw error || "Failed to send verifcation link.";
+    }
+}
+
 // Logout user
 export const logout = () => {
     localStorage.removeItem("user");

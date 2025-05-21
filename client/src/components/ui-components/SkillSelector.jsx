@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import Label from "./Label";
 
 
-const SkillSelector = ({ addSkill }) => {
+const SkillSelector = ({ addSkill, removeSkill }) => {
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [newSkill, setNewSkill] = useState("");
 
@@ -27,12 +27,16 @@ const SkillSelector = ({ addSkill }) => {
             setSkill("");
             setRequired("");
             setExpertise("");
-            addSkill(selectedSkills)
+            addSkill([
+                ...selectedSkills,
+                { skill, required, expertise },
+            ])
         }
     };
 
     const handleDeleteSkill = (index) => {
         setSelectedSkills(selectedSkills.filter((_, i) => i !== index));
+        removeSkill(selectedSkills.filter((_, i) => i !== index))
     };
 
     const handleAddNewSkill = () => {

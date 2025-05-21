@@ -11,6 +11,7 @@ import ForgotPassword from '../pages/forgotPassword/ForgotPassword'
 import ResetPassword from '../pages/resetPassword/ResetPassword'
 import SavedJobs from '@/components/jobseeker/SavedJobs'
 import Content from '../components/content/Content'
+import EmailVerification from '@/pages/register/EmailVerification'
 
 function AppRoutes() {
     return (
@@ -24,6 +25,7 @@ function AppRoutes() {
                 <Route path={Constants.ResetPassword} element={<ResetPassword pageType="ResetPassword" />} />
                 <Route path={Constants.Jobs} element={<Content pageType="Content" />} />
                 <Route path={Constants.JobPost} element={<JobPostMain />} />
+                <Route path={Constants.EmailVerification + "/:uniqueId"} element={<EmailVerification />} />
 
                 <Route element={<ProtectedRoute allowedRoles={['JobSeeker']} />}>
                     <Route path={Constants.Profile} element={<Profile />} />

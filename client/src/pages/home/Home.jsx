@@ -45,21 +45,21 @@ function Home() {
             <Navbar />
             <Carousel />
 
-            <section id='about-us' className=' bg-yellow py-10 md:py-24 lg:py-24 text-left px-5'>
+            <section id='about-us' className=' bg-cta py-10 md:py-24 lg:py-24 text-left px-5'>
                 <div className="max-w-7xl mx-auto">
                     <h2 className="text-3xl font-extrabold text-talgan-green sm:text-4xl text-center mb-20">
                         We Excel in the Following Areas
                     </h2>
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                         <div className="bg-bg-gray rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
-                            <div className="flex items-center justify-center w-12 h-12 bg-yellow rounded-md mb-4">
+                            <div className="flex items-center justify-center w-12 h-12 bg-cta rounded-md mb-4">
                                 <Globe />
                             </div>
                             <h3 className="text-xl font-semibold text-white mb-2">Global Reach, Local Expertise</h3>
                             <p className="text-white">We proudly serve major markets across Singapore, India, and the US, ensuring our clients benefit from our extensive network and local knowledge.</p>
                         </div>
                         <div className="bg-bg-gray rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
-                            <div className="flex items-center justify-center w-12 h-12 bg-yellow rounded-md mb-4">
+                            <div className="flex items-center justify-center w-12 h-12 bg-cta rounded-md mb-4">
                                 <Briefcase />
                             </div>
                             <h3 className="text-xl font-semibold text-white mb-2">Industry-Spanning Expertise
@@ -67,7 +67,7 @@ function Home() {
                             <p className="text-white">Our proficiency in placing technology professionals extends beyond the tech sector, reaching into non-technology industries, especially private markets and manufacturing industries. This versatility allows us to meet diverse hiring needs with precision.</p>
                         </div>
                         <div className="bg-bg-gray rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
-                            <div className="flex items-center justify-center w-12 h-12 bg-yellow rounded-md mb-4">
+                            <div className="flex items-center justify-center w-12 h-12 bg-cta rounded-md mb-4">
                                 <GraduationCap />
                             </div>
                             <h3 className="text-xl font-semibold text-white mb-2">Specialized Focus Areas</h3>
@@ -193,7 +193,7 @@ function Home() {
                     </div>
                 </div>
             </section>
-            <footer className='py-5 text-sm bg-yellow text-white'>
+            <footer className='py-5 text-sm bg-cta text-white'>
                 <p className='text-talgan-green'>2025 © TALGANIZE.</p>
             </footer>
         </div >

@@ -6,9 +6,14 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const dotEnv = require('dotenv');
 const { oauth2Client } = require('../config/googleConfig');
+const { sendEmail } = require('../utils/utils');
+const crypto = require('crypto')
 dotEnv.config({
     path: '../config.env'
 })
+
+// const FRONTEND_URL = 'http://localhost:3000'
+const FRONTEND_URL = 'https://frontend-dot-talganize-dev.uc.r.appspot.com'
 
 exports.getUser = async (req, res) => {
 
@@ -39,42 +44,31 @@ exports.googleAuth = async (req, res) => {
     res.redirect(googleAuthURL);
 }
 
-exports.loginWithGoogle = (req, res) => {
+// exports.loginWithGoogle = (req, res) => {
 
-    // try {
+// try {
 
-    //     const code = req.body.code;
-    //     console.log('code', code);
+//     const code = req.body.code;
+//     console.log('code', code);
 
-    //     // Get tokens from Google using the auth code
-    //     oauth2Client.getToken(code).then((googleRes) => {
-    //         console.log('google res', googleRes);
+//     // Get tokens from Google using the auth code
+//     oauth2Client.getToken(code).then((googleRes) => {
+//         console.log('google res', googleRes);
 
-    //         const user = jwt.decode(googleRes.tokens.id_token);
+//         const user = jwt.decode(googleRes.tokens.id_token);
 
-    //         const { given_name, email, family_name, email_verified, picture } = user;
-    //         console.log('data', given_name);
-    //     })
-
-
-
-    // } catch (error) {
-    //     console.log('error', error);
-
-    // }
-}
-exports.getUserById = async (req, res) => {
-
-    try {
-        const id = req.params.id;
+//         const { given_name, email, family_name, email_verified, picture } = user;
+//         console.log('data', given_name);
+//     })
 
 
 
-    } catch (error) {
+// } catch (error) {
+//     console.log('error', error);
 
-    }
+// }
+// }
 
-}
 exports.loginWithGoogle = async (req, res) => {
 
     try {
@@ -135,7 +129,7 @@ exports.loginWithGoogle = async (req, res) => {
 
 exports.checkDatabaseConnection = async (req, res) => {
 
-    const query = 'SELECT 1'
+    const query = 'SELECT * from users where id = 1'
     const [result, fields] = await db.query(query)
 
     res.send({
@@ -174,7 +168,6 @@ exports.googleAuthCallback = async (req, res) => {
 
         // Decode user info
         const userInfo = jwt.decode(id_token);
-        console.log('user info', userInfo);
 
 
         // Create JWT for session (optional)
@@ -193,21 +186,22 @@ exports.googleAuthCallback = async (req, res) => {
 
 exports.registerUser = async (req, res) => {
     try {
-        console.log('registering user')
+
         const { firstName, middleName, lastName, email, password, userType } = req.body;
 
         if (!firstName || !lastName || !email || !password || !userType) {
-            return res.status(400).json({ message: 'Email and password are required' });
+            return res.status(400).json({ message: 'Mandatory fields must be filled.' });
         }
 
 
         let fetchUserQuery = 'SELECT * FROM users WHERE email = ?';
-        const [result, fields] = await db.query(fetchUserQuery, [email])
+        const [result, fields1] = await db.query(fetchUserQuery, [email])
 
 
         if (result && result.length > 0) {
             res.status(400).json({
-                message: "User already exists."
+                status: false,
+                message: "User already exists, please login."
             })
         } else {
             const hashedPassword = await bcrypt.hash(password, salt);
@@ -217,78 +211,49 @@ exports.registerUser = async (req, res) => {
 
             let insertUserQuery = 'INSERT INTO users (first_name, middle_name, last_name, user_type_id, email, password ) VALUES (?, ?, ?, ?, ?, ?)';
 
-            const [insertResult, fields] = await db.query(insertUserQuery, [firstName, mName, lastName, userTypeId, email, hashedPassword])
+            const [insertUserResult, fields2] = await db.query(insertUserQuery, [firstName, mName, lastName, userTypeId, email, hashedPassword])
 
-            if (insertResult && insertResult.affectedRows === 1) {
-                res.status(201).json({
-                    status: true,
-                    message: "User created."
-                })
+            if (insertUserResult && insertUserResult.affectedRows === 1) {
+                const uniqueId = crypto.randomBytes(16).toString('hex');
+                const userId = insertUserResult.insertId
+
+                const insertUniqueId = 'INSERT INTO email_verification(email, unique_id) values(?, ?)'
+
+                const [insertIdResult, fields3] = await db.query(insertUniqueId, [email, uniqueId])
+
+
+                if (insertIdResult.affectedRows > 0) {
+                    let subject = "Email Verification - Talganize"
+                    let html = `<h4>Welcome to Talganize<h4><p>Please verify your email by clicking on the link ${FRONTEND_URL}/email-verification/${uniqueId}</p>`
+                    let emailResult = await sendEmail(email, subject, html)
+
+                    if (emailResult.emailStatus) {
+                        res.status(201).json({
+                            status: true,
+                            userId: userId,
+                            message: "Verification link is sent to your mail id."
+                        })
+                    } else {
+                        res.status(201).json({
+                            status: false,
+                            message: "Unable to send verification link."
+                        })
+                    }
+                } else {
+                    res.status(500).json({ status: false, message: "Unable to save link." })
+                }
+
             } else {
                 res.status(500).json({
+                    status: false,
                     message: "Unable to create user."
                 })
             }
 
         }
 
-
-
-
-
-
-
-        // let fetchUserQuery = 'SELECT * FROM users WHERE email = ?';
-        // db.query(fetchUserQuery, [email], async (err, results) => {
-        //     if (err) {
-        //         console.log('fetch', results)
-        //         return res.status(500).json({ message: 'Database error', error: err });
-        //     }
-
-        //     console.log('user', results)
-        //     if (results.length > 0) {
-        //         return res.status(400).json({ message: 'User already exists' });
-        //     }
-
-        //     const hashedPassword = await bcrypt.hash(password, salt);
-        //     let insertUserQuery = 'INSERT INTO users (email, password) VALUES (?, ?)';
-
-        //     db.query(insertUserQuery, [email, hashedPassword], (err, result) => {
-        //         if (err) {
-        //             return res.status(500).json({ message: 'Error creating user', error: err });
-        //         }
-        //         return res.status(201).json({ message: 'User registered successfully' });
-        //     });
-        // });
-
-
-        // const user = User.findOne({ where: { email: email } })
-
-        // User.findAll({ where: { email: email } }).then(async (user) => {
-        //     if (user.length > 0) {
-        //         return res.status(400).json({ message: "User already exists" })
-        //     }
-
-        //     const userType = role === 'JobSeeker' ? 1 : 2
-        //     const hashedPassword = await bcrypt.hash(password, salt)
-
-        //     if (hashedPassword) {
-        //         const user = await User.create({
-        //             email: email,
-        //             password: password,
-        //             user_type: userType
-        //         })
-
-        //         if (user) {
-        //             res.status(201).json({ message: "User created." })
-        //         }
-        //     }
-
-        // })
-
-
     } catch (error) {
-        return res.status(500).json({ message: 'Server error', error: error.message });
+        return res.status(500).json({ status: false, message: 'Server error', error: error.message });
     }
 
 };
@@ -296,6 +261,7 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
 
     try {
+
         const email = req.body.email;
         const userPassword = req.body.password;
 
@@ -306,7 +272,7 @@ exports.loginUser = async (req, res) => {
         let [result, fields] = await db.query(getUser, [email])
 
 
-        if (!result) {
+        if (!result || result.length === 0) {
             return res.status(404).json({ message: "User not found" })
         }
         var isSame = bcrypt.compareSync(userPassword, result[0]['password']);
@@ -341,3 +307,136 @@ exports.loginUser = async (req, res) => {
         return res.status(500).json({ message: 'Server error', error: error.message });
     }
 }
+
+exports.verifyEmailToken = async (req, res) => {
+    try {
+
+        const uniqueId = req.body.uniqueId;
+
+        const query = 'SELECT * from email_verification where unique_id = ?'
+        const [result, fields] = await db.query(query, uniqueId)
+
+        if (result && result.length > 0) {
+            const token = result[0].unique_id
+            const email = result[0].email
+
+            if (token === uniqueId) {
+
+                const updateQuery = 'UPDATE users SET email_verified = 1 where email = ?'
+                const [updateResult, fields1] = await db.query(updateQuery, email)
+
+                if (updateResult.affectedRows === 1) {
+                    res.status(200).json({
+                        status: true,
+                        message: "Email id verfied."
+                    })
+                } else {
+                    res.status(401).json({
+                        status: false,
+                        message: "Email validation failed."
+                    })
+                }
+
+            } else {
+                res.status(401).json({
+                    status: false,
+                    message: "Invalid token."
+                })
+            }
+        } else {
+            res.status(404).json({
+                status: false,
+                message: "No verfication details found."
+            })
+        }
+
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            error: error.message,
+            message: "Server error"
+        })
+    }
+}
+
+exports.sendEmailVerificationLink = async (req, res) => {
+    try {
+        const email = req.body.email
+        const uniqueId = crypto.randomBytes(16).toString('hex');
+
+
+        const insertUniqueId = 'INSERT INTO email_verification(email, unique_id) values(?, ?)'
+
+        const [result, fields3] = await db.query(insertUniqueId, [email, uniqueId])
+
+        if (result.affectedRows === 1) {
+
+            let subject = "Email Verification - Talganize"
+            let html = `<h4>Welcome to Talganize<h4><p>Please verify your email by clicking on the link ${FRONTEND_URL}/email-verification/${uniqueId}</p>`
+            let emailResult = await sendEmail(email, subject, html)
+
+            if (emailResult.emailStatus) {
+                res.status(201).json({
+                    status: true,
+                    message: "Verification link is sent to your mail id."
+                })
+            } else {
+                res.status(500).json({
+                    status: false,
+                    message: "Unable to send verification link."
+                })
+            }
+        } else {
+            res.status(500).json({
+                status: false,
+                message: "Failed to save data."
+            })
+        }
+
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            message: "Server error.",
+            error: error.message
+        })
+    }
+}
+
+
+// exports.validateOTP = async (req, res) => {
+
+//     const otp = req.body.otp;
+//     const email = req.body.email;
+
+//     const query = 'SELECT * FROM email_otp where email = ? ORDER BY id DESC LIMIT 1'
+//     const [result, fields] = await db.query(query, [email])
+
+//     if (result.length > 0) {
+//         let differenceInMs = new Date() - result[0].created_at;
+
+//         if ((differenceInMs / 60000) > 10) {
+//             return res.status(400).json({
+//                 status: false,
+//                 message: "OTP Expired."
+//             })
+//         }
+
+//         if (otp === result[0].code.toString()) {
+//             res.status(200).json({
+//                 status: true,
+//                 message: "OTP is valid."
+//             })
+//         } else {
+//             res.status(400).json({
+//                 status: false,
+//                 message: "OTP is Invalid."
+//             })
+//         }
+
+//     } else {
+//         res.status(404).json({
+//             status: false,
+//             message: "No details found."
+//         })
+//     }
+// }

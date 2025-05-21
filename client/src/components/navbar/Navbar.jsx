@@ -3,7 +3,7 @@ import { Menu } from 'lucide-react'
 import * as AppRoutes from '../../app-routes/Constants'
 import Logo from '../../assets/images/Talganize.svg'
 import { Link } from 'react-scroll'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import JobseekerDropdown from '../ui-components/JobseekerDropdown'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -22,7 +22,7 @@ function Navbar() {
 
     const [isOpen, setIsOpen] = useState(false);
     const [user, setUser] = useState("")
-
+    const location = useLocation()
     const navigate = useNavigate()
 
 
@@ -65,8 +65,21 @@ function Navbar() {
         },
     ]
 
+    const handleScrollNav = (sectionId) => {
+        if (location.pathname === '/') {
+            // You're on the homepage already — scroll directly
+            const el = document.getElementById(sectionId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            // Navigate to homepage with scroll target
+            navigate(`/`);
+        }
+    };
+
     return (
-        <nav className="bg-yellow w-full sticky top-0 z-10">
+        <nav className="bg-cta w-full sticky top-0 z-10">
             <div className="container mx-auto px-4 py-4 flex justify-between md:items-end gap-2">
                 {/* Logo */}
                 <div className="w-[200px] md:w-[200px]">
@@ -79,7 +92,7 @@ function Navbar() {
                     {
                         navlink.map((item) => (
                             <li key={item.id}>
-                                <Link to={item.path} smooth={true} duration={300} className="cursor-pointer no-underline ">
+                                <Link to={item.path} onClick={() => handleScrollNav(item.path)} smooth={true} duration={300} className="cursor-pointer no-underline ">
                                     {item.name}
                                 </Link>
                             </li>
@@ -138,7 +151,7 @@ function Navbar() {
 
             {/* Mobile Menu */}
             {isOpen && (
-                <div className="md:hidden bg-yellow px-4 py-2">
+                <div className="md:hidden bg-cta px-4 py-2">
                     <ul className="flex flex-col items-center space-y-2 text-talgan-green font-semibold">
                         {
                             navlink.map((item) => (

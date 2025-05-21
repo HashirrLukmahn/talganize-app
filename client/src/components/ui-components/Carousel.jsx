@@ -5,7 +5,7 @@ import { Building2, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import * as AppRoutes from '../../app-routes/Constants'
 import { Badge } from "@/components/ui/badge"
-import { jobs } from '../../assets/testData'
+import { jobsData } from '../../assets/testData'
 import { NavLink } from 'react-router-dom';
 function Carousel() {
 
@@ -80,7 +80,7 @@ function Carousel() {
                 <div className="bg-gray-50 p-6 overflow-auto max-h-[calc(100vh-4rem)]">
                     <h2 className="text-xl font-semibold mb-6">Latest Job Openings</h2>
                     <div className="space-y-4">
-                        {jobs.slice(0, 5).map((item, index) => (
+                        {jobsData.slice(0, 5).map((item, index) => (
                             <div key={index} className="p-4 hover:shadow-lg transition-shadow rounded-xl ring-1 shadow-md ring-gray-200">
                                 <div className="flex items-start justify-between mb-2">
                                     <div>

@@ -11,7 +11,6 @@ function ProtectedRoute({ allowedRoles }) {
     const user = JSON.parse(localStorage.getItem('user'))
 
     if (!token || !user) {
-        console.log('no token present');
         navigate(Constants.Login)
         return
     }

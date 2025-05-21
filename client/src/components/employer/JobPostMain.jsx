@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Button from "../ui-components/Button"
 import Input from "../ui-components/Input"
 import Label from "../ui-components/Label"
@@ -7,13 +7,22 @@ import Label from "../ui-components/Label"
 // import { Checkbox } from "@/components/ui/checkbox"
 // import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, } from "@/components/ui/select"
-import { Briefcase, Building, FileText, User } from "lucide-react"
+import { Briefcase, Building, ChevronLeft, FileText, User } from "lucide-react"
 import ButtonSelector from "../ui-components/ButtonSelector"
 import SkillSelector from "../ui-components/SkillSelector"
+import { useNavigate } from "react-router-dom"
+import Swal from "sweetalert2"
+import Loader from "../ui-components/Loader"
+import { addNewSkill } from "@/services/employerService"
+import { validate } from "./jobPostValidation"
 
 
 function JobPostMain() {
+    const navigate = useNavigate();
     const [currentStep, setCurrentStep] = useState(1)
+    const [newSkill, setNewSkill] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const [errors, setErrors] = useState({})
     const [formData, setFormData] = useState({
         // Company details
         companyName: "",
@@ -47,6 +56,7 @@ function JobPostMain() {
     })
 
 
+
     const handleInputChange = (e) => {
         let { name, value } = e?.target
         value = name === "travelRequired" ? e?.target.checked : value
@@ -62,13 +72,20 @@ function JobPostMain() {
 
 
     const handleSkillSelect = (name, value) => {
+        console.log(formData.skills);
+
         setFormData((prev) => ({ ...prev, [name]: value }))
     };
 
     const nextStep = () => {
+
         if (currentStep < 4) {
-            setCurrentStep(currentStep + 1)
-            window.scrollTo(0, 0)
+            const currentStepErrors = validate(formData, currentStep)
+            setErrors(currentStepErrors)
+            if (Object.keys(currentStepErrors).length === 0) {
+                setCurrentStep(currentStep + 1)
+                window.scrollTo(0, 0)
+            }
         }
     }
 
@@ -79,6 +96,88 @@ function JobPostMain() {
         }
     }
 
+    const postJob = () => {
+        if (currentStep === 4) {
+            const currentStepErrors = validate(formData, currentStep)
+            setErrors(currentStepErrors)
+            if (Object.keys(currentStepErrors).length === 0) {
+
+                try {
+
+                } catch (error) {
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: error?.response?.data?.message || "Something went wrong.",
+                        text: "Please try again.",
+                        showConfirmButton: false,
+                        timer: 2000,
+                        toast: true
+                    })
+                } finally {
+                    setIsLoading(false)
+                }
+
+            }
+        }
+    }
+
+    const addSkill = async () => {
+        if (newSkill.trim() === "") {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Invalid input.",
+                text: "Field cannot be empty.",
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true
+            })
+            return
+        }
+
+        try {
+            setIsLoading(true)
+            let data = {
+                skill: newSkill
+            }
+            const response = await addNewSkill(data)
+            if (response.status) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Added new skill successfully.",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true
+                })
+            } else {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Failed to add skill.",
+                    text: "Please try again.",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true
+                })
+            }
+        } catch (error) {
+
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: error?.response?.data?.message || "Something went wrong.",
+                text: "Please try again.",
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true
+            })
+        } finally {
+            setIsLoading(false)
+        }
+    }
     const steps = [
         { id: 1, name: "Company", icon: <Building className="h-5 w-5" /> },
         { id: 2, name: "Job Details", icon: <Briefcase className="h-5 w-5" /> },
@@ -87,10 +186,13 @@ function JobPostMain() {
     ]
 
     return (
-        <div className="min-h-screen bg-yellow py-8 px-4 sm:px-6 lg:px-8 relative">
+        <div className="min-h-screen bg-cta py-8 px-4 sm:px-6 lg:px-8 relative">
+            {JSON.stringify(formData.skills, null, 2)}
+            {isLoading ? <Loader isLoading={true} /> : null}
             <div className="absolute top-[30%] left-0 w-full h-[70%] bg-white"></div>
 
-            <div className="max-w-4xl bg-none  text-left  mx-auto">
+            <div className="max-w-4xl bg-none text-left  mx-auto">
+                <button className="flex text-white p-1" onClick={() => navigate('/')}><ChevronLeft />back</button>
                 <div className="mb-8 text-center">
                     <h1 className="text-heading font-heading text-lightbg">Post a New Job</h1>
                     <p className="text-small font-small text-lightbg">Complete all steps to publish your job posting</p>
@@ -147,6 +249,7 @@ function JobPostMain() {
                                         onChange={handleInputChange}
                                         placeholder="Enter your company name"
                                     />
+                                    {errors.companyName && <p className="text-xs text-red-500">{errors.companyName}</p>}
                                 </div>
 
                                 <div className="space-y-2">
@@ -158,6 +261,8 @@ function JobPostMain() {
                                         onChange={handleInputChange}
                                         placeholder="https://yourcompany.com"
                                     />
+                                    {errors.companyWebsite && <p className="text-xs text-red-500">{errors.companyWebsite}</p>}
+
                                 </div>
 
                                 <div className="space-y-2">
@@ -169,6 +274,8 @@ function JobPostMain() {
                                         onChange={handleInputChange}
                                         placeholder="https://linkedin.com/company/yourcompany"
                                     />
+                                    {errors.companyLinkedIn && <p className="text-xs text-red-500">{errors.companyLinkedIn}</p>}
+
                                 </div>
 
                                 <div className="space-y-2">
@@ -190,6 +297,8 @@ function JobPostMain() {
                                             </SelectGroup>
                                         </SelectContent>
                                     </Select>
+                                    {errors.companyIndustry && <p className="text-xs text-red-500">{errors.companyIndustry}</p>}
+
                                     {/* <select
                                         onValueChange={(value) => handleSelectChange("companyIndustry", value)}
                                         value={formData.companyIndustry}
@@ -213,7 +322,7 @@ function JobPostMain() {
                                 <div className="space-y-2">
                                     <div className=" flex gap-4">
                                         <div className="flex-1 space-y-2">
-                                            <Label required htmlFor='companyCountry'>Country</Label>
+                                            <Label required htmlFor='companyCountry'>Country headquartered in</Label>
                                             <Input
                                                 id="companyCountry"
                                                 name="companyCountry"
@@ -221,9 +330,10 @@ function JobPostMain() {
                                                 onChange={handleInputChange}
                                                 placeholder="Enter company's country."
                                             />
+                                            {errors.companyCountry && <p className="text-xs text-red-500">{errors.companyCountry}</p>}
                                         </div>
                                         <div className="flex-1 space-y-2">
-                                            <Label required htmlFor='companyCity'>City</Label>
+                                            <Label required htmlFor='companyCity'>City headquartered in</Label>
                                             <Input
                                                 id="companyCity"
                                                 name="companyCity"
@@ -231,6 +341,7 @@ function JobPostMain() {
                                                 onChange={handleInputChange}
                                                 placeholder="Enter company's city."
                                             />
+                                            {errors.companyCity && <p className="text-xs text-red-500">{errors.companyCity}</p>}
                                         </div>
                                     </div>
                                     {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
@@ -301,6 +412,7 @@ function JobPostMain() {
                                         onChange={handleInputChange}
                                         placeholder="your@email.com"
                                     />
+                                    {errors.signinemail && <p className="text-xs text-red-500">{errors.signinemail}</p>}
                                 </div>
                             </div>
                         )}
@@ -316,6 +428,7 @@ function JobPostMain() {
                                         onChange={handleInputChange}
                                         placeholder="e.g. Senior Software Engineer"
                                     />
+                                    {errors.jobTitle && <p className="text-xs text-red-500">{errors.jobTitle}</p>}
                                 </div>
 
                                 <div className="space-y-2">
@@ -323,6 +436,7 @@ function JobPostMain() {
                                     <div>
                                         <ButtonSelector onSelect={(value) => handleSelectChange("jobLocationType", value)} />
                                     </div>
+                                    {errors.jobLocationType && <p className="text-xs text-red-500">{errors.jobLocationType}</p>}
                                 </div>
 
                                 {formData.jobLocationType === "OnSite" || formData.jobLocationType === "Hybrid" ? (
@@ -335,12 +449,13 @@ function JobPostMain() {
                                             onChange={handleInputChange}
                                             placeholder="e.g. New York"
                                         />
+                                        {errors.jobLocation && <p className="text-xs text-red-500">{errors.jobLocation}</p>}
                                     </div>
                                 ) : null}
 
                                 {formData.jobLocationType === "Hybrid" && (
                                     <div className="space-y-2">
-                                        <Label htmlFor="hybridDetails">Hybrid details</Label>
+                                        <Label required htmlFor="hybridDetails">Hybrid details</Label>
                                         <Input
                                             id="hybridDetails"
                                             name="hybridDetails"
@@ -348,6 +463,7 @@ function JobPostMain() {
                                             onChange={handleInputChange}
                                             placeholder="e.g. 3 days in office, 2 days remote"
                                         />
+                                        {errors.hybridDetails && <p className="text-xs text-red-500">{errors.hybridDetails}</p>}
                                     </div>
                                 )}
 
@@ -388,6 +504,7 @@ function JobPostMain() {
                                                 placeholder="e.g. 450000"
                                                 className="w-1/3"
                                             />
+                                            {errors.minSalary && <p className="text-xs text-red-500">{errors.minSalary}</p>}
                                         </div>
                                         <div className="w-1/3">
                                             <Label htmlFor="maxSalary">Maximum</Label>
@@ -400,6 +517,7 @@ function JobPostMain() {
                                                 placeholder="e.g. 600000"
                                                 className="w-1/3"
                                             />
+                                            {errors.maxSalary && <p className="text-xs text-red-500">{errors.maxSalary}</p>}
                                         </div>
                                         <div className="w-1/3">
                                             <Label htmlFor="currency">Currency</Label>
@@ -417,6 +535,7 @@ function JobPostMain() {
                                                     </SelectGroup>
                                                 </SelectContent>
                                             </Select>
+                                            {errors.currency && <p className="text-xs text-red-500">{errors.currency}</p>}
                                         </div>
                                         <div className="w-1/3">
                                             <Label htmlFor="salaryRate">Rate</Label>
@@ -433,6 +552,7 @@ function JobPostMain() {
                                                     </SelectGroup>
                                                 </SelectContent>
                                             </Select>
+                                            {errors.salaryRate && <p className="text-xs text-red-500">{errors.salaryRate}</p>}
                                         </div>
 
                                     </div>
@@ -443,22 +563,23 @@ function JobPostMain() {
 
                         {currentStep === 3 && (
                             <div className="space-y-6">
-                                <SkillSelector addSkill={(value) => handleSkillSelect('skills', value)} />
+                                <SkillSelector addSkill={(value) => handleSkillSelect('skills', value)} removeSkill={(value) => handleSkillSelect('skills', value)} />
+                                {errors.skills && <p className="text-xs text-red-500">{errors.skills}</p>}
 
                                 <div className="space-y-2 flex items-end gap-2">
                                     <div>
-                                        <Label required htmlFor="addNewSkill">Add new skill</Label>
+                                        <Label htmlFor="addNewSkill">Add new skill</Label>
                                         <Input
                                             id="addNewSkill"
                                             name="addNewSkill"
-                                            value={formData.addNewSkill}
-                                            onChange={handleInputChange}
+                                            value={newSkill}
+                                            onChange={(e) => setNewSkill(e.target.value)}
                                             className="flex-1"
                                             placeholder="Javascript"
                                         />
                                     </div>
                                     <div>
-                                        <Button className="m-0">Add</Button>
+                                        <Button className="m-0" onClick={addSkill}>Add</Button>
                                     </div>
                                 </div>
 
@@ -469,8 +590,10 @@ function JobPostMain() {
                                         name="experience"
                                         value={formData.experience}
                                         onChange={handleInputChange}
-                                        placeholder="Professional experience"
+                                        placeholder="e.g. 5"
                                     />
+                                    {errors.experience && <p className="text-xs text-red-500">{errors.experience}</p>}
+
                                 </div>
 
                                 <div className="space-y-2">
@@ -483,6 +606,7 @@ function JobPostMain() {
                                         placeholder="Describe the role and responsibilities"
                                         className="flex h-32 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                                     />
+                                    {errors.jobDescription && <p className="text-xs text-red-500">{errors.jobDescription}</p>}
                                 </div>
                                 <div className="space-y-2">
                                     <Label required htmlFor="managerEmail">Hiring manager email</Label>
@@ -493,6 +617,7 @@ function JobPostMain() {
                                         onChange={handleInputChange}
                                         placeholder="e.g. your@email.com"
                                     />
+                                    {errors.managerEmail && <p className="text-xs text-red-500">{errors.managerEmail}</p>}
                                 </div>
                                 {/* <div className="space-y-2">
                                     <Label htmlFor="education">Education Requirements</Label>
@@ -558,6 +683,7 @@ function JobPostMain() {
                                         onChange={handleInputChange}
                                         placeholder="e.g. BE"
                                     />
+                                    {errors.qualification && <p className="text-xs text-red-500">{errors.qualification}</p>}
                                 </div>
 
                                 <div className="space-y-2">
@@ -637,7 +763,7 @@ function JobPostMain() {
                         <Button variant={currentStep === 1 ? 'muted' : "outline"} onClick={prevStep} disabled={currentStep === 1}>
                             Previous
                         </Button>
-                        <Button onClick={currentStep < 4 ? nextStep : () => console.log("Form submitted:", formData)}>
+                        <Button onClick={currentStep < 4 ? nextStep : () => postJob()}>
                             {currentStep < 4 ? "Next" : "Submit Job Posting"}
                         </Button>
                     </div>

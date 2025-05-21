@@ -9,6 +9,8 @@ userRouter.post('/api/auth/google', userContoller.loginWithGoogle)
 userRouter.get('/api/auth/google/callback', userContoller.googleAuthCallback)
 // userRouter.get('/api/me', userContoller.loginWithGoogle)
 userRouter.post('/api/auth/login', userContoller.loginUser)
+userRouter.post('/api/auth/verifyEmailToken', userContoller.verifyEmailToken)
+userRouter.post('/api/auth/sendEmailVerificationLink', userContoller.sendEmailVerificationLink)
 
 userRouter.post('/api/addExperience', jobSeekerController.addExperience)
 

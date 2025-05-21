@@ -10,7 +10,8 @@ var bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 
 const userRouter = require("./src/routes/userRouter")
-
+const jobSeekerRouter = require("./src/routes/jobSeekerRouter")
+const employerRouter = require('./src/routes/employerRouter')
 
 
 // Importing the ENV file constants
@@ -23,18 +24,42 @@ const userRouter = require("./src/routes/userRouter")
 // Choosing the ports from env ( default 8080)
 const PORT = process.env.PORT || 8080
 
+const allowedOrigins = [
+    "http://localhost:3000",
+    "https://frontend-dot-talganize-dev.uc.r.appspot.com",
+];
 
+
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl)
+
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        } else {
+            return callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+}));
+app.options("*", cors());
+
+app.use(express.json())
 app.use(bodyParser.urlencoded({
     extended: true,
     limit: '900mb'
 }));
-
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-app.use(express.json())
-// app.use(upload())
-app.use(userRouter)
 app.use(cookieParser());
+// app.use(upload())
 
+
+
+app.use(userRouter)
+app.use(jobSeekerRouter)
+app.use('/api/employer', employerRouter)
 
 
 
