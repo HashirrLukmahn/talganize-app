@@ -1,3 +1,4 @@
+import { saveJob, unsaveJob } from "@/services/jobService"
 import Button from "./Button"
 import { Bookmark, BookmarkCheck, Clock, DollarSign, MapPin } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -7,6 +8,7 @@ function JobCard(props) {
     const [saved, setSaved] = useState(false)
 
     const { company, job, id } = props?.jobDetails
+    const { isSaved, handleSaveJob, handleUnsaveJob } = props
 
 
 
@@ -25,32 +27,10 @@ function JobCard(props) {
         props.openModal()
     }
 
-    useEffect(() => {
-        if (localStorage.getItem('savedJob') === null) {
-            localStorage.setItem('savedJob', "[]")
-        } else {
-            let savedJobsArr = JSON.parse(localStorage.getItem('savedJob'))
-            if (savedJobsArr?.includes(id)) {
-                setSaved(true)
-            }
-        }
 
-    }, [id])
 
-    const saveJob = (id) => {
-        let savedJobsArr = JSON.parse(localStorage.getItem('savedJob'))
 
-        if (savedJobsArr.includes(id)) {
-            let index = savedJobsArr.indexOf(id)
-            savedJobsArr.splice(index, 1)
-            localStorage.setItem('savedJob', JSON.stringify(savedJobsArr))
-            setSaved(false)
-        } else {
-            savedJobsArr.push(id)
-            localStorage.setItem('savedJob', JSON.stringify(savedJobsArr))
-            setSaved(true)
-        }
-    }
+
 
     return (
         <div className="rounded-xl ring-1 shadow-md hover:shadow-xl transition-all duration-300 ring-gray-200 p-6 bg-white w-[350px] md:w-[400px] ">
@@ -90,9 +70,9 @@ function JobCard(props) {
                         <span>{company?.updatedDaysAgo} days ago</span>
                     </div>
                 </div>
-                <div className="ml-auto mb-auto cursor-pointer" onClick={(e) => saveJob(id)}>
-                    {saved ? <span className="flex text-sm items-center text-gray-600"><BookmarkCheck className="mr-1" size={16} /> Saved</span>
-                        : <span className="flex text-sm items-center text-gray-600"><Bookmark className="mr-1" size={16} /> Save</span>}
+                <div className="ml-auto mb-auto cursor-pointer" >
+                    {isSaved ? <span className="flex text-sm items-center text-gray-600" onClick={(e) => handleUnsaveJob(id)}><BookmarkCheck className="mr-1" size={16} /> Saved</span>
+                        : <span className="flex text-sm items-center text-gray-600" onClick={(e) => handleSaveJob(id)}><Bookmark className="mr-1" size={16} /> Save</span>}
                 </div>
             </div>
 

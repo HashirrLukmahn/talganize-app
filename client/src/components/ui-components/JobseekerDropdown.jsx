@@ -21,7 +21,7 @@ const JobseekerDropdown = () => {
 
                 <MenuItems
                     transition
-                    className="absolute bg-yellow right-0 w-52 mt-2 origin-top-right rounded-xl border border-white/5  p-1 text-sm text- shadow-lg focus:outline-none"
+                    className="absolute bg-cta right-0 w-52 mt-2 origin-top-right rounded-xl border border-white/5  p-1 text-sm text- shadow-lg focus:outline-none"
                 >
                     <MenuItem>
                         {({ active }) => (

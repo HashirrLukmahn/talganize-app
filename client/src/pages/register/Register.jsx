@@ -34,9 +34,7 @@ function Register() {
                 timer: 2000,
                 toast: true
             })
-
             return
-
         }
         if (password !== repeatPassword) {
 
@@ -62,22 +60,19 @@ function Register() {
         }
 
         try {
-
             let response = await registerWithEmail(data)
-
             if (response.status) {
+
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: "Check your inbox.",
-                    text: "Verify your email.",
+                    title: "Please check your inbox.",
+                    text: "A verification link has been sent to your email id.",
                     showConfirmButton: false,
                     timer: 2000,
                     toast: true
                 })
             }
-
-
         } catch (error) {
             if (error.status === 400) {
                 Swal.fire({
@@ -89,8 +84,17 @@ function Register() {
                     timer: 2000,
                     toast: true
                 })
+            } else {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Unable to create account.",
+                    text: "Please try again.",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true
+                })
             }
-            console.log('Error', error?.message)
         }
 
     }
@@ -102,8 +106,7 @@ function Register() {
                 <div className='w-64'>
                     <Link to={'/'}><img src={Logo} alt='Talganize' /></Link>
                 </div>
-                <div className='bg-white px-5 py-8 md:px-10 md:py-8 w-full md:w-[500px] shadows text-left rounded-md'>
-
+                <div className='bg-white px-5 py-8 md:px-10 md:py-8 w-full shadow-md md:w-[500px] shadows text-left rounded-md'>
                     <p className='text-3xl font-bold mb-2'>Register</p>
                     <p className='text-gray-text mb-4'>Please enter your details</p>
                     {/* <div className='flex flex-col mb-8'>
@@ -216,10 +219,9 @@ function Register() {
                     <div className='w-full flex justify-center'>
                         <p>Already have an account? <Link className='text-talgan-green font-semibold' to={AppRoutes.Login}>Login</Link></p>
                     </div>
-
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -1,7 +1,7 @@
 
 
-// export const BASE_URL = "http://localhost:8080/api" //LOCAL SERVER URL
-export const BASE_URL = "https://talganize-dev.uc.r.appspot.com/api" //LOCAL SERVER URL
+export const BASE_URL = "http://localhost:8080/api" //LOCAL SERVER URL
+// export const BASE_URL = "https://talganize-dev.uc.r.appspot.com/api" //BACKEND SERVER URL
 
 
 export const defaultUser = {
@@ -31,6 +31,7 @@ export const Register = '/register'
 export const ForgotPassword = '/forgot-password'
 export const ResetPassword = '/reset-password'
 export const ContactUs = '/contact-us'
+export const EmailVerification = '/email-verification'
 
 
 //Candidate routes

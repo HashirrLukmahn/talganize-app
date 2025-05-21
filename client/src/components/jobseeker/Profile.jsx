@@ -8,6 +8,7 @@ import Input from '../ui-components/Input';
 function Profile() {
 
     const [user, setUser] = useState('')
+    const [errors, setErrors] = useState({})
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user'))
@@ -24,11 +25,36 @@ function Profile() {
         setExperiences([...experiences, { id: Date.now(), company: '', jobTitle: '', from: '', to: '' }]);
     };
 
-    // const handleExperiencechange = (id, field, value)=>{
-    //     setExperiences((prev)=>{
-    //         prev.map(exp)
-    //     })
-    // }
+    const handleExperienceChange = (id, field, value) => {
+        setExperiences(prev =>
+            prev.map(exp =>
+                exp.id === id ? { ...exp, [field]: value } : exp
+            )
+        );
+    };
+
+    const validateExperiences = () => {
+        const newErrors = {}
+
+        experiences.forEach((exp, index) => {
+            const expErrors = {};
+
+            if (!exp.company.trim()) expErrors.company = "Company is required.";
+            if (!exp.jobTitle.trim()) expErrors.jobTitle = "Job Title is required.";
+            if (!exp.from.trim()) expErrors.from = "Start date is required.";
+            if (!exp.to.trim()) expErrors.to = "End date is required.";
+            if (!exp.country.trim()) expErrors.country = "Country is required.";
+            if (!exp.responsibility.trim()) expErrors.responsibility = "Responsibility is required."
+
+            if (Object.keys(expErrors).length > 0) {
+                newErrors[exp.id] = expErrors
+            }
+        })
+
+        setErrors(newErrors)
+
+        return Object.keys(newErrors).length = 0;
+    }
 
     const removeExperience = (id) => {
         setExperiences(experiences.filter((exp) => exp.id !== id));
@@ -110,7 +136,7 @@ function Profile() {
                 <div className='w-full max-w-[900px] mx-auto'>
                     <div className='rounded-xl mt-4 ring-1 shadow-md hover:shadow-xl ring-slate-200 transition-shadow shadow-black/5 ring-slate-700/10 text-slate-700 p-6 text-left bg-white relative'>
                         <p className='mb-6 text-2xl font-semibold'>Experience Details</p>
-
+                        {JSON.stringify(experiences, null, 2)}
                         {experiences.map((experience, index) => (
                             <div key={experience.id}>
                                 <div className='flex justify-between items-baseline mb-4'>
@@ -129,6 +155,8 @@ function Profile() {
                                         <Input
                                             type='text'
                                             placeholder='Company Name'
+                                            value={experiences.company}
+                                            onChange={(e) => handleExperienceChange(experience.id, 'company', e.target.value)}
                                         />
                                     </div>
                                     <div className='w-full'>
@@ -136,6 +164,8 @@ function Profile() {
                                         <Input
                                             type='text'
                                             placeholder='Job Title'
+                                            value={experiences.jobTitle}
+                                            onChange={(e) => handleExperienceChange(experience.id, 'jobTitle', e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -146,8 +176,10 @@ function Profile() {
                                         <Input
                                             type='month'
                                             min='1990-01'
-                                            max='2025-03'
+                                            max='2025-05'
                                             required
+                                            value={experience.from}
+                                            onChange={e => handleExperienceChange(experience.id, 'from', e.target.value)}
                                         />
                                     </div>
                                     <div className='w-full sm:w-1/3'>
@@ -157,6 +189,9 @@ function Profile() {
                                             min='1990-01'
                                             max='2025-03'
                                             required
+                                            value={experience.to}
+                                            onChange={e => handleExperienceChange(experience.id, 'to', e.target.value)}
+
                                         />
                                     </div>
                                     <div className='w-full sm:w-1/3'>
@@ -164,6 +199,8 @@ function Profile() {
                                         <Input
                                             type='text'
                                             placeholder='Country'
+                                            value={experience.country}
+                                            onChange={e => handleExperienceChange(experience.id, 'country', e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -173,6 +210,8 @@ function Profile() {
                                     <textarea
                                         className="w-full mt-2 px-3 py-2 h-32 text-black bg-transparent outline-none border border-gray-300 focus:border-talgan-green shadow-sm rounded-lg"
                                         placeholder='Describe your role'
+                                        value={experience.responsibility}
+                                        onChange={e => handleExperienceChange(experience.id, 'responsibility', e.target.value)}
                                     />
                                 </div>
                                 <hr className='w-full h-[2px] bg-gray-400 mt-8 mb-4'></hr>

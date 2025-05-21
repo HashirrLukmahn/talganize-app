@@ -1,15 +1,17 @@
-export const jobs = [
+export const jobsData = [
     {
         "id": 1,
         "company": {
             "name": "Amazon",
             "logo": "https://example.com/amazon-logo.png",
-            "updatedDaysAgo": 5
+            "updatedDaysAgo": 5,
+            "industry": "Technology"
         },
         "job": {
             "title": "Data Scientist",
             "experienceLevel": "Entry level",
-            "salary": "125k-150k Annually",
+            "salary": "125-150",
+            "rate": "Annually",
             "location": "San Francisco, CA",
             "skills": [
                 { "skill": "React.js", "experience": "2" },
@@ -27,12 +29,14 @@ export const jobs = [
         "company": {
             "name": "Google",
             "logo": "https://example.com/google-logo.png",
-            "updatedDaysAgo": 3
+            "updatedDaysAgo": 3,
+            "industry": "Technology"
         },
         "job": {
             "title": "Software Engineer",
             "experienceLevel": "Mid level",
-            "salary": "140k-180k Annually",
+            "salary": "140-180",
+            "rate": "Annually",
             "location": "Mountain View, CA",
             "skills": [
                 { "skill": "JavaScript", "experience": "3" },
@@ -47,12 +51,14 @@ export const jobs = [
         "company": {
             "name": "Microsoft",
             "logo": "https://example.com/microsoft-logo.png",
-            "updatedDaysAgo": 7
+            "updatedDaysAgo": 7,
+            "industry": "Technology"
         },
         "job": {
             "title": "Cloud Engineer",
             "experienceLevel": "Senior level",
             "salary": "Not disclosed",
+            "rate": "",
             "location": "Seattle, WA",
             "skills": [
                 { "skill": "Azure", "experience": "5" },
@@ -67,12 +73,14 @@ export const jobs = [
         "company": {
             "name": "Facebook",
             "logo": "https://example.com/facebook-logo.png",
-            "updatedDaysAgo": 2
+            "updatedDaysAgo": 2,
+            "industry": "Technology"
         },
         "job": {
             "title": "UI/UX Designer",
             "experienceLevel": "Junior level",
-            "salary": "100k-120k Annually",
+            "salary": "100-120",
+            "rate": "Annually",
             "location": "Menlo Park, CA",
             "skills": [
                 { "skill": "Figma", "experience": "2" },
@@ -87,12 +95,14 @@ export const jobs = [
         "company": {
             "name": "Tesla",
             "logo": "https://example.com/tesla-logo.png",
-            "updatedDaysAgo": 4
+            "updatedDaysAgo": 4,
+            "industry": "Technology"
         },
         "job": {
             "title": "DevOps Engineer",
             "experienceLevel": "Mid level",
-            "salary": "120k-140k Annually",
+            "salary": "120-140",
+            "rate": "Annually",
             "location": "Austin, TX",
             "skills": [
                 { "skill": "AWS", "experience": "4" },
@@ -107,12 +117,14 @@ export const jobs = [
         "company": {
             "name": "Netflix",
             "logo": "https://example.com/netflix-logo.png",
-            "updatedDaysAgo": 6
+            "updatedDaysAgo": 6,
+            "industry": "Retail"
         },
         "job": {
             "title": "Backend Developer",
             "experienceLevel": "Expert/Managerial",
-            "salary": "160k-200k Annually",
+            "salary": "160-200",
+            "rate": "Annually",
             "location": "Los Gatos, CA",
             "skills": [
                 { "skill": "Java", "experience": "6" },
@@ -127,12 +139,14 @@ export const jobs = [
         "company": {
             "name": "Airbnb",
             "logo": "https://example.com/airbnb-logo.png",
-            "updatedDaysAgo": 1
+            "updatedDaysAgo": 1,
+            "industry": "Finance"
         },
         "job": {
             "title": "Frontend Developer",
             "experienceLevel": "Mid level",
-            "salary": "110k-130k Annually",
+            "salary": "110-130",
+            "rate": "Annually",
             "location": "San Francisco, CA",
             "skills": [
                 { "skill": "React.js", "experience": "3" },
@@ -147,12 +161,14 @@ export const jobs = [
         "company": {
             "name": "Uber",
             "logo": "https://example.com/uber-logo.png",
-            "updatedDaysAgo": 9
+            "updatedDaysAgo": 9,
+            "industry": "Finance"
         },
         "job": {
             "title": "Data Analyst",
             "experienceLevel": "Junior level",
-            "salary": "90k-110k Annually",
+            "salary": "90-110",
+            "rate": "Annually",
             "location": "New York, NY",
             "skills": [
                 { "skill": "SQL", "experience": "2" },
@@ -167,12 +183,14 @@ export const jobs = [
         "company": {
             "name": "Shopify",
             "logo": "https://example.com/shopify-logo.png",
-            "updatedDaysAgo": 8
+            "updatedDaysAgo": 8,
+            "industry": "Finance"
         },
         "job": {
             "title": "Product Manager",
             "experienceLevel": "Senior level",
-            "salary": "140k-170k Annually",
+            "salary": "140-170",
+            "rate": "Annually",
             "location": "Toronto, Canada",
             "skills": [
                 { "skill": "Agile", "experience": "5" },
