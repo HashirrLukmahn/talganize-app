@@ -13,6 +13,7 @@ import Label from '@/components/ui-components/Label';
 import Input from '@/components/ui-components/Input';
 
 
+
 function Login() {
 
     const [email, setEmail] = useState('')
@@ -72,6 +73,14 @@ function Login() {
         onError: login,
         flow: 'auth-code'
     })
+
+    /*
+    const microsoftLogin = useMicrosoftLogin({
+        onSuccess: login,
+        onError: login,
+        flow:
+    })
+    */
 
     const testLogin = (e) => {
         e.preventDefault()
