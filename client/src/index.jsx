@@ -10,11 +10,11 @@ import { MsalProvider } from '@azure/msal-react';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <GoogleOAuthProvider clientId={"261893817087-mh9j7ieq35d5r1v9j5drvha4hosql1sq.apps.googleusercontent.com"}>
-    {/* <MsalProvider instance = {msalInstance}> 8*/}
+    <MsalProvider instance = {msalInstance}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-    {/*</MsalProvider>8*/}
+    </MsalProvider>
   </GoogleOAuthProvider>
 );
 

@@ -11,8 +11,8 @@ import Loader from '@/components/ui-components/Loader';
 import { CircleCheck } from 'lucide-react';
 import Label from '@/components/ui-components/Label';
 import Input from '@/components/ui-components/Input';
-
-
+import { msalConfig, loginRequest } from '@/services/authService'
+import { useMsal } from '@azure/msal-react';
 
 function Login() {
 
@@ -21,8 +21,14 @@ function Login() {
     const [emailVerified, setEmailVerified] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [enteredEmail, setEnteredEmail] = useState('')
+    
 
+    //Configured MSAL hooks for Microsoft Authentication.
+    const { instance } = useMsal();
+    const activeAccount = instance.getActiveAccount();
+    
     const navigate = useNavigate()
+    
 
     const login = async (authResult) => {
 
@@ -64,6 +70,75 @@ function Login() {
                 toast: true
             })
             console.log('Error: ', error);
+        }
+    };
+
+        // AMENDED: Added Microsoft login handler function
+    const handleMicrosoftLogin = async () => {
+        try {
+            const loginResponse = await instance.loginPopup({
+                ...loginRequest,
+                scopes: ["user.read"]
+            });
+
+            if (loginResponse.account) {
+                // AMENDED: Handle Microsoft login success
+                // You'll need to create a backend endpoint to handle Microsoft tokens
+                // Similar to how you have loginWithGoogle
+                const microsoftAuthData = {
+                    accessToken: loginResponse.accessToken,
+                    account: loginResponse.account
+                };
+
+                // AMENDED: You'll need to create this function in your authService.js
+                // const result = await loginWithMicrosoft(microsoftAuthData);
+                
+                // For now, let's handle it similarly to Google login
+                // You'll need to send the Microsoft token to your backend
+                console.log('Microsoft login successful:', loginResponse);
+                
+                // AMENDED: Temporary success handling - replace with actual backend call
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Microsoft login successful!",
+                    text: "You are now logged in.",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true
+                });
+
+                // AMENDED: Navigate to appropriate page after successful login
+                // Replace this with your actual logic after backend integration
+                navigate(Constants.Jobs);
+                
+            }
+        } catch (error) {
+            console.error('Microsoft login error:', error);
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Microsoft login failed.",
+                text: "Please try again.",
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true
+            });
+        }
+    };
+
+    // AMENDED: Added Microsoft logout handler function
+    const handleMicrosoftLogout = async () => {
+        try {
+            await instance.logoutPopup({
+                postLogoutRedirectUri: '/',
+            });
+            // AMENDED: Clear local storage similar to regular logout
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+            window.location.reload();
+        } catch (error) {
+            console.error('Microsoft logout error:', error);
         }
     };
 
@@ -237,7 +312,7 @@ function Login() {
                                         <span> Continue with Google</span>
                                     </button>
                                     <button
-
+                                        onClick={handleMicrosoftLogin}
                                         className='flex justify-center items-center gap-4 relative w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none
                              border border-gray-light shadow-sm rounded-lg font-semibold'>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><title>MS-SymbolLockup</title>
