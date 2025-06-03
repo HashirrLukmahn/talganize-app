@@ -12,8 +12,8 @@ dotEnv.config({
     path: '../config.env'
 })
 
-// const FRONTEND_URL = 'http://localhost:3000'
-const FRONTEND_URL = 'https://frontend-dot-talganize-dev.uc.r.appspot.com'
+const FRONTEND_URL = 'http://localhost:3000'
+//const FRONTEND_URL = 'https://frontend-dot-talganize-dev.uc.r.appspot.com'
 
 exports.getUser = async (req, res) => {
 
@@ -258,6 +258,138 @@ exports.registerUser = async (req, res) => {
 
 };
 
+//This section will include the MSAL Login functions:
+
+// Microsoft token verification function
+const verifyMicrosoftToken = async (accessToken) => {
+    try {
+        const response = await axios.get('https://graph.microsoft.com/v1.0/me', {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Microsoft token verification failed:', error.response?.data || error.message);
+        return null;
+    }
+};
+
+// Add this Microsoft login function to your exports
+exports.loginWithMicrosoft = async (req, res) => {
+    try {
+        const { accessToken, account } = req.body;
+
+        if (!accessToken) {
+            return res.status(400).json({ error: 'Access token is required' });
+        }
+
+        // Verify the Microsoft token and get user info
+        const microsoftUser = await verifyMicrosoftToken(accessToken);
+        
+        if (!microsoftUser) {
+            return res.status(401).json({ error: 'Invalid Microsoft token' });
+        }
+
+        // Extract user information (similar to your Google auth structure)
+        const userEmail = microsoftUser.mail || microsoftUser.userPrincipalName;
+        const microsoftId = microsoftUser.id;
+        const displayName = microsoftUser.displayName;
+        const [firstName, ...lastNameParts] = displayName.split(' ');
+        const lastName = lastNameParts.join(' ') || '';
+
+        // Check if user exists (similar to your Google auth query)
+        const getQuery = `SELECT user.id, user.first_name, user.middle_name, user.last_name, user.user_type_id, user.email, user.phone, user.microsoft_id, userType.type_name 
+                        FROM users as user LEFT JOIN user_type as userType
+                        ON user.user_type_id = userType.id
+                        WHERE email = ? OR microsoft_id = ?`;
+
+        const [userInfo, fields] = await db.query(getQuery, [userEmail, microsoftId]);
+
+        if (userInfo && userInfo.length > 0) {
+            // User exists - update microsoft_id if not set
+            if (!userInfo[0].microsoft_id) {
+                const updateQuery = `UPDATE users SET microsoft_id = ?, auth_provider = 'microsoft' WHERE id = ?`;
+                await db.query(updateQuery, [microsoftId, userInfo[0].id]);
+                userInfo[0].microsoft_id = microsoftId;
+            }
+
+            // Create session token (same as your Google/email login)
+            const sessionToken = jwt.sign({
+                email: userInfo[0].email,
+                first_name: userInfo[0].first_name,
+                last_name: userInfo[0].last_name,
+                user_type_id: userInfo[0].user_type_id,
+                type_name: userInfo[0].type_name
+            }, "secret");
+
+            res.status(200).json({
+                message: "User already exists",
+                user: userInfo[0],
+                token: sessionToken
+            });
+
+        } else {
+            // Create new user (similar to your Google auth creation)
+            const createUser = `INSERT INTO users (first_name, last_name, user_type_id, email, microsoft_id, auth_provider, email_verified, updated_at)
+                                VALUES(?,?,?,?,?,?,?,?)`;
+            
+            const [result, fields] = await db.query(createUser, [
+                firstName, 
+                lastName, 
+                1, // Default to JobSeeker
+                userEmail, 
+                microsoftId,
+                'microsoft',
+                1, // Microsoft accounts are pre-verified
+                new Date()
+            ]);
+
+            if (result.affectedRows === 1) {
+                // Get the created user
+                const newUser = {
+                    id: result.insertId,
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: userEmail,
+                    user_type_id: 1,
+                    type_name: 'JobSeeker',
+                    microsoft_id: microsoftId,
+                    email_verified: 1
+                };
+
+                // Create session token
+                const sessionToken = jwt.sign({
+                    email: newUser.email,
+                    first_name: newUser.first_name,
+                    last_name: newUser.last_name,
+                    user_type_id: newUser.user_type_id,
+                    type_name: newUser.type_name
+                }, "secret");
+
+                res.status(201).json({
+                    message: "User created successfully",
+                    user: newUser,
+                    token: sessionToken
+                });
+            } else {
+                res.status(500).json({
+                    message: "Unable to create user."
+                });
+            }
+        }
+
+    } catch (error) {
+        console.error('Microsoft authentication error:', error);
+        res.status(500).json({ 
+            message: "Internal server error", 
+            error: error.message 
+        });
+    }
+};
+
+
 exports.loginUser = async (req, res) => {
 
     try {
@@ -401,6 +533,15 @@ exports.sendEmailVerificationLink = async (req, res) => {
         })
     }
 }
+
+//test for MSAL route:
+exports.testMicrosoftRoute = async (req, res) => {
+    res.status(200).json({
+        status: true,
+        message: "Microsoft auth route is working",
+        timestamp: new Date()
+    });
+};
 
 
 // exports.validateOTP = async (req, res) => {

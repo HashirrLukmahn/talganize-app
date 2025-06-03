@@ -1,4 +1,4 @@
-import { EventType, PublicClientApplication} from "@azure/msal-browser";
+import { EventType, PublicClientApplication } from "@azure/msal-browser";
 import { msalConfig } from "../services/authService"
 
 // Create MSAL instance outside component to prevent recreation on every render

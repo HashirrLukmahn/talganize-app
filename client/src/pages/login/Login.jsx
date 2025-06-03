@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/images/Talganize.svg'
 import * as Constants from '../../app-routes/Constants'
 import { useGoogleLogin } from '@react-oauth/google';
-import { loginWithGoogle, loginWithEmail, sendEmailVerificationLink } from '@/services/authService';
+import { loginWithGoogle, loginWithEmail, sendEmailVerificationLink, loginWithMicrosoft } from '@/services/authService';
 import Swal from 'sweetalert2';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Loader from '@/components/ui-components/Loader';
@@ -74,58 +74,48 @@ function Login() {
     };
 
         // AMENDED: Added Microsoft login handler function
-    const handleMicrosoftLogin = async () => {
-        try {
-            const loginResponse = await instance.loginPopup({
-                ...loginRequest,
-                scopes: ["user.read"]
-            });
+// In your Login component, import the new function
 
-            if (loginResponse.account) {
-                // AMENDED: Handle Microsoft login success
-                // You'll need to create a backend endpoint to handle Microsoft tokens
-                // Similar to how you have loginWithGoogle
-                const microsoftAuthData = {
-                    accessToken: loginResponse.accessToken,
-                    account: loginResponse.account
-                };
 
-                // AMENDED: You'll need to create this function in your authService.js
-                // const result = await loginWithMicrosoft(microsoftAuthData);
-                
-                // For now, let's handle it similarly to Google login
-                // You'll need to send the Microsoft token to your backend
-                console.log('Microsoft login successful:', loginResponse);
-                
-                // AMENDED: Temporary success handling - replace with actual backend call
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Microsoft login successful!",
-                    text: "You are now logged in.",
-                    showConfirmButton: false,
-                    timer: 2000,
-                    toast: true
-                });
+// Update your handleMicrosoftLogin function
+const handleMicrosoftLogin = async () => {
+    try {
+        const loginResponse = await instance.loginPopup({
+            ...loginRequest,
+            scopes: ["user.read"]
+        });
+        
+        if (loginResponse.account) {
+            const microsoftAuthData = {
+                accessToken: loginResponse.accessToken,
+                account: loginResponse.account
+            };
+        console.log(microsoftAuthData)
 
-                // AMENDED: Navigate to appropriate page after successful login
-                // Replace this with your actual logic after backend integration
+            // STEP 2: Now using the backend integration
+            const result = await loginWithMicrosoft(microsoftAuthData);
+            
+            if (result.user && result.user.type_name === "JobSeeker") {
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('user', JSON.stringify(result.user));
                 navigate(Constants.Jobs);
-                
+            } else if (result && result.user_type === 2) {
+                navigate(Constants.JobPost);
             }
-        } catch (error) {
-            console.error('Microsoft login error:', error);
-            Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Microsoft login failed.",
-                text: "Please try again.",
-                showConfirmButton: false,
-                timer: 2000,
-                toast: true
-            });
         }
-    };
+    } catch (error) {
+        console.error('Microsoft login error:', error);
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Microsoft login failed.",
+            text: "Please try again.",
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true
+        });
+    }
+};
 
     // AMENDED: Added Microsoft logout handler function
     const handleMicrosoftLogout = async () => {

@@ -1,9 +1,9 @@
 import axiosInstance from "@/api/axiosInstance";
 // import { registerUser, loginUser, googleLogin } from "../api/authApi";
-import { LOGIN_WITH_EMAIL, LOGIN_WITH_GOOGLE, REGISTER_WITH_EMAIL, SEND_EMAIL_VERIFICATION_LINK, VERIFY_EMAIL_TOKEN } from "../api/authApi";
+import { LOGIN_WITH_EMAIL, LOGIN_WITH_GOOGLE, LOGIN_WITH_MICROSOFT, REGISTER_WITH_EMAIL, SEND_EMAIL_VERIFICATION_LINK, VERIFY_EMAIL_TOKEN } from "../api/authApi";
 import { LogLevel } from '@azure/msal-browser';
 
-const clientID = process.env.REACT_APP_MICROSOFT_AUTH_APPLICATION_ID
+//const clientID = process.env.REACT_APP_MICROSOFT_AUTH_APPLICATION_ID
 //const tenantID = process.env.REACT_APP_MICROSOFT_TENANT_ID
  
 // Login user Google Account
@@ -20,6 +20,19 @@ export const loginWithGoogle = async (code) => {
         throw error || "Login failed";
     }
 }
+
+//Login user Microsoft Account
+export const loginWithMicrosoft = async (microsoftData) => {
+    try {
+        // This will call the backend endpoint for Microsoft authentication
+        const result = await axiosInstance.post(LOGIN_WITH_MICROSOFT, microsoftData);
+        return result.data;
+    } catch (error) {
+        console.error('Microsoft backend login error:', error);
+        throw error || "Microsoft login failed";
+    }
+}
+
 export const registerWithEmail = async (data) => {
 
     try {
@@ -74,7 +87,7 @@ export const logout = () => {
 
 export const msalConfig = {
      auth: {
-         clientId: clientID, // This is the ONLY mandatory field that you need to supply.
+         clientId: '92cb9b7f-e2fc-4357-a65a-f2e531919ced', // This is the ONLY mandatory field that you need to supply.
          authority: 'https://login.microsoftonline.com/common/', // Replace the placeholder with your tenant info
          redirectUri: 'http://localhost:3000', // Points to window.location.origin. You must register this URI on Microsoft Entra admin center/App Registration.
          postLogoutRedirectUri: '/', // Indicates the page to navigate after logout.
@@ -118,8 +131,16 @@ export const msalConfig = {
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
  export const loginRequest = {
-     scopes: [],
+     scopes: ["User.Read"],
  };
+
+ /**
+ * Add here the scopes to request when obtaining an access token for MS Graph API. For more information, see:
+ * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/resources-and-scopes.md
+ */
+export const graphConfig = {
+    graphMeEndpoint: "https://graph.microsoft.com/v1.0/me",
+};
 
  /**
  * An optional silentRequest object can be used to achieve silent SSO

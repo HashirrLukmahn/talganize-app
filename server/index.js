@@ -27,6 +27,7 @@ const PORT = process.env.PORT || 8080
 const allowedOrigins = [
     "http://localhost:3000",
     "https://frontend-dot-talganize-dev.uc.r.appspot.com",
+    "http://localhost:8080/api/auth/google"
 ];
 
 

@@ -1,23 +1,28 @@
 const express = require('express')
 const userRouter = express.Router()
-const userContoller = require('../controllers/userController')
+const userController = require('../controllers/userController')
 const jobSeekerController = require('../controllers/jobSeekerController')
 
-userRouter.get('/api/getUser/:userId', userContoller.getUser)
-userRouter.post('/api/auth/register', userContoller.registerUser)
-userRouter.post('/api/auth/google', userContoller.loginWithGoogle)
-userRouter.get('/api/auth/google/callback', userContoller.googleAuthCallback)
+//Google routes
+userRouter.get('/api/getUser/:userId', userController.getUser)
+userRouter.post('/api/auth/register', userController.registerUser)
+userRouter.post('/api/auth/google', userController.loginWithGoogle)
+userRouter.get('/api/auth/google/callback', userController.googleAuthCallback)
 // userRouter.get('/api/me', userContoller.loginWithGoogle)
-userRouter.post('/api/auth/login', userContoller.loginUser)
-userRouter.post('/api/auth/verifyEmailToken', userContoller.verifyEmailToken)
-userRouter.post('/api/auth/sendEmailVerificationLink', userContoller.sendEmailVerificationLink)
 
+// Microsoft route (only POST needed)
+userRouter.post('/microsoft', userController.loginWithMicrosoft);
+
+//Other routes
+userRouter.post('/api/auth/login', userController.loginUser)
+userRouter.post('/api/auth/verifyEmailToken', userController.verifyEmailToken)
+userRouter.post('/api/auth/sendEmailVerificationLink', userController.sendEmailVerificationLink)
 userRouter.post('/api/addExperience', jobSeekerController.addExperience)
 
 
-
-userRouter.get('/api/testServer', userContoller.testServerStatus)
-userRouter.get('/api/test', userContoller.checkDatabaseConnection)
+//Testing routes
+userRouter.get('/api/testServer', userController.testServerStatus)
+userRouter.get('/api/test', userController.checkDatabaseConnection)
 
 
 

@@ -12,7 +12,7 @@ root.render(
   <GoogleOAuthProvider clientId={"261893817087-mh9j7ieq35d5r1v9j5drvha4hosql1sq.apps.googleusercontent.com"}>
     <MsalProvider instance = {msalInstance}>
     <React.StrictMode>
-      <App />
+      <App/>
     </React.StrictMode>
     </MsalProvider>
   </GoogleOAuthProvider>

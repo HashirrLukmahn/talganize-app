@@ -5,6 +5,7 @@ const JOB_API = "/job"
 const EMPLOYER = "/employer"
 
 export const LOGIN_WITH_GOOGLE = `${BASE_URL}${AUTH_API}/google`;
+export const LOGIN_WITH_MICROSOFT = `${BASE_URL}${AUTH_API}/microsoft`; //added this function to assist with backend calls for MSAL
 export const REGISTER_WITH_EMAIL = `${BASE_URL}${AUTH_API}/register`;
 export const LOGIN_WITH_EMAIL = `${BASE_URL}${AUTH_API}/login`;
 export const VERIFY_EMAIL_TOKEN = `${BASE_URL}${AUTH_API}/verifyEmailToken`;
