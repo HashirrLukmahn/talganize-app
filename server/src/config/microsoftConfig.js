@@ -28,9 +28,9 @@ exports.verifyMicrosoftToken = async (accessToken) => {
 };
 
 // Helper function to get additional user info if needed
-exports.getMicrosoftUserProfile = async (accessToken) => {
+/*exports.getMicrosoftUserProfile = async (accessToken) => {
     try {
-        const response = await axios.get('https://graph.microsoft.com', {
+        const response = await axios.get('https://graph.microsoft.com/v1.0/me', {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
@@ -49,4 +49,4 @@ exports.getMicrosoftUserProfile = async (accessToken) => {
         console.error('Failed to get Microsoft user profile:', error);
         return null;
     }
-};
+};*/

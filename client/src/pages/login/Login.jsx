@@ -22,6 +22,8 @@ function Login() {
     const [isLoading, setIsLoading] = useState(false)
     const [enteredEmail, setEnteredEmail] = useState('')
     
+     // ADD THIS LINE:
+    const [isMicrosoftLoading, setIsMicrosoftLoading] = useState(false)
 
     //Configured MSAL hooks for Microsoft Authentication.
     const { instance } = useMsal();
@@ -79,6 +81,7 @@ function Login() {
 
 // Update your handleMicrosoftLogin function
 const handleMicrosoftLogin = async () => {
+    setIsMicrosoftLoading(true);
     try {
         const loginResponse = await instance.loginPopup({
             ...loginRequest,
@@ -90,14 +93,23 @@ const handleMicrosoftLogin = async () => {
                 accessToken: loginResponse.accessToken,
                 account: loginResponse.account
             };
-        console.log(microsoftAuthData)
 
-            // STEP 2: Now using the backend integration
             const result = await loginWithMicrosoft(microsoftAuthData);
             
             if (result.user && result.user.type_name === "JobSeeker") {
                 localStorage.setItem('token', result.token);
                 localStorage.setItem('user', JSON.stringify(result.user));
+                
+                // Success notification
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `Welcome back, ${result.user.first_name}!`,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true
+                });
+                
                 navigate(Constants.Jobs);
             } else if (result && result.user_type === 2) {
                 navigate(Constants.JobPost);
@@ -105,20 +117,32 @@ const handleMicrosoftLogin = async () => {
         }
     } catch (error) {
         console.error('Microsoft login error:', error);
+        
+        // More specific error messages
+        let errorMessage = "Please try again.";
+        if (error.message.includes('popup_window_error')) {
+            errorMessage = "Popup was blocked. Please allow popups and try again.";
+        } else if (error.message.includes('network')) {
+            errorMessage = "Network error. Please check your connection.";
+        }
+        
         Swal.fire({
             position: "top-end",
             icon: "error",
             title: "Microsoft login failed.",
-            text: "Please try again.",
+            text: errorMessage,
             showConfirmButton: false,
-            timer: 2000,
+            timer: 3000,
             toast: true
         });
+    } finally {
+        setIsMicrosoftLoading(false);
     }
 };
 
+
     // AMENDED: Added Microsoft logout handler function
-    const handleMicrosoftLogout = async () => {
+    const handleMicrosoftLogout = async () => { //added loading state
         try {
             await instance.logoutPopup({
                 postLogoutRedirectUri: '/',
@@ -138,14 +162,6 @@ const handleMicrosoftLogin = async () => {
         onError: login,
         flow: 'auth-code'
     })
-
-    /*
-    const microsoftLogin = useMicrosoftLogin({
-        onSuccess: login,
-        onError: login,
-        flow:
-    })
-    */
 
     const testLogin = (e) => {
         e.preventDefault()
@@ -303,13 +319,24 @@ const handleMicrosoftLogin = async () => {
                                     </button>
                                     <button
                                         onClick={handleMicrosoftLogin}
-                                        className='flex justify-center items-center gap-4 relative w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none
-                             border border-gray-light shadow-sm rounded-lg font-semibold'>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><title>MS-SymbolLockup</title>
-                                            <rect x="1" y="1" width="9" height="9" fill="#f25022" /><rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
-                                            <rect x="11" y="1" width="9" height="9" fill="#7fba00" /><rect x="11" y="11" width="9" height="9" fill="#ffb900" />
-                                        </svg>
-                                        <span>Continue with Microsoft</span>
+                                        disabled={isMicrosoftLoading}
+                                        className={`flex justify-center items-center gap-4 relative w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-gray-light shadow-sm rounded-lg font-semibold ${isMicrosoftLoading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                        
+                                        {isMicrosoftLoading ? (
+                                            <div className="w-5 h-5 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
+                                                <title>MS-SymbolLockup</title>
+                                                <rect x="1" y="1" width="9" height="9" fill="#f25022" />
+                                                <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
+                                                <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
+                                                <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
+                                            </svg>
+                                        )}
+                                        
+                                        <span>
+                                            {isMicrosoftLoading ? 'Signing in...' : 'Continue with Microsoft'}
+                                        </span>
                                     </button>
                                 </div>
                                 <div className='flex justify-between items-center'>

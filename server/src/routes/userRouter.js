@@ -11,7 +11,7 @@ userRouter.get('/api/auth/google/callback', userController.googleAuthCallback)
 // userRouter.get('/api/me', userContoller.loginWithGoogle)
 
 // Microsoft route (only POST needed)
-userRouter.post('/microsoft', userController.loginWithMicrosoft);
+userRouter.post('/api/auth/microsoft', userController.loginWithMicrosoft);
 
 //Other routes
 userRouter.post('/api/auth/login', userController.loginUser)
@@ -23,7 +23,9 @@ userRouter.post('/api/addExperience', jobSeekerController.addExperience)
 //Testing routes
 userRouter.get('/api/testServer', userController.testServerStatus)
 userRouter.get('/api/test', userController.checkDatabaseConnection)
-
+userRouter.get('/api/test-db-connection', userController.testDatabaseConnection);
+//userRouter.get('/api/test-gcp-db', userController.testGCPDatabase);
+//userRouter.get('/api/test-gcp', userController.testGCPConnection);
 
 
 module.exports = userRouter

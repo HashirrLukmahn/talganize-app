@@ -127,6 +127,41 @@ exports.loginWithGoogle = async (req, res) => {
 
 }
 
+exports.quickDBTest = async (req, res) => {
+    const mysql = require('mysql2/promise');
+    
+    try {
+        console.log('Testing direct connection...');
+        console.log('Host:', process.env.DB_HOST);
+        console.log('User:', process.env.DB_USER);
+        console.log('Database:', process.env.DB_NAME);
+        
+        const connection = await mysql.createConnection({
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASS,
+            database: process.env.DB_NAME,
+            port: 3306,
+            timeout: 20000
+        });
+        
+        const [result] = await connection.execute('SELECT 1 as test');
+        await connection.end();
+        
+        res.json({ 
+            status: 'SUCCESS!',
+            result: result[0]
+        });
+        
+    } catch (error) {
+        console.error('Direct connection failed:', error);
+        res.status(500).json({ 
+            error: error.message,
+            code: error.code 
+        });
+    }
+};
+
 exports.checkDatabaseConnection = async (req, res) => {
 
     const query = 'SELECT * from users where id = 1'
@@ -146,6 +181,58 @@ exports.testServerStatus = async (req, res) => {
         message: "Server is running.."
     })
 }
+
+//test for MSAL route:
+exports.testMicrosoftRoute = async (req, res) => {
+    res.status(200).json({
+        status: true,
+        message: "Microsoft auth route is working",
+        timestamp: new Date()
+    });
+};
+
+exports.testDatabaseConnection = async (req, res) => {
+    try {
+        console.log('🔵 Testing database connection...');
+        const [result] = await db.query('SELECT 1 as test');
+        console.log('✅ Database connection successful:', result);
+        res.json({ 
+            status: 'Database connected successfully',
+            result: result
+        });
+    } catch (error) {
+        console.error('❌ Database connection failed:', error);
+        res.status(500).json({ 
+            error: 'Database connection failed',
+            code: error.code,
+            message: error.message
+        });
+    }
+};
+
+exports.testGCPConnection = async (req, res) => {
+    try {
+        console.log('Testing GCP database connection...');
+        console.log('Host:', process.env.DB_HOST);
+        console.log('Database:', process.env.DB_NAME);
+        
+        const [result] = await db.query('SELECT 1 as test, NOW() as time');
+        
+        res.json({ 
+            status: 'GCP Database Connected!',
+            host: process.env.DB_HOST,
+            database: process.env.DB_NAME,
+            result: result[0]
+        });
+    } catch (error) {
+        console.error('GCP connection failed:', error);
+        res.status(500).json({ 
+            error: 'GCP connection failed',
+            message: error.message,
+            code: error.code
+        });
+    }
+};
 
 exports.googleAuthCallback = async (req, res) => {
     const code = req.query.code;
@@ -276,7 +363,7 @@ const verifyMicrosoftToken = async (accessToken) => {
     }
 };
 
-// Add this Microsoft login function to your exports
+// Add Microsoft login function to your exports
 exports.loginWithMicrosoft = async (req, res) => {
     try {
         const { accessToken, account } = req.body;
@@ -292,27 +379,28 @@ exports.loginWithMicrosoft = async (req, res) => {
             return res.status(401).json({ error: 'Invalid Microsoft token' });
         }
 
-        // Extract user information (similar to your Google auth structure)
+        // Extract user information
         const userEmail = microsoftUser.mail || microsoftUser.userPrincipalName;
         const microsoftId = microsoftUser.id;
         const displayName = microsoftUser.displayName;
         const [firstName, ...lastNameParts] = displayName.split(' ');
         const lastName = lastNameParts.join(' ') || '';
 
-        // Check if user exists (similar to your Google auth query)
-        const getQuery = `SELECT user.id, user.first_name, user.middle_name, user.last_name, user.user_type_id, user.email, user.phone, user.microsoft_id, userType.type_name 
+        // Check if user exists using your existing table structure
+        const getQuery = `SELECT user.id, user.first_name, user.middle_name, user.last_name, user.user_type_id, user.email, user.phone, user.provider, user.provider_id, userType.type_name 
                         FROM users as user LEFT JOIN user_type as userType
                         ON user.user_type_id = userType.id
-                        WHERE email = ? OR microsoft_id = ?`;
+                        WHERE email = ? OR (provider = 'microsoft' AND provider_id = ?)`;
 
         const [userInfo, fields] = await db.query(getQuery, [userEmail, microsoftId]);
 
         if (userInfo && userInfo.length > 0) {
-            // User exists - update microsoft_id if not set
-            if (!userInfo[0].microsoft_id) {
-                const updateQuery = `UPDATE users SET microsoft_id = ?, auth_provider = 'microsoft' WHERE id = ?`;
+            // User exists - update provider info if not set
+            if (!userInfo[0].provider_id || userInfo[0].provider !== 'microsoft') {
+                const updateQuery = `UPDATE users SET provider = 'microsoft', provider_id = ? WHERE id = ?`;
                 await db.query(updateQuery, [microsoftId, userInfo[0].id]);
-                userInfo[0].microsoft_id = microsoftId;
+                userInfo[0].provider = 'microsoft';
+                userInfo[0].provider_id = microsoftId;
             }
 
             // Create session token (same as your Google/email login)
@@ -331,18 +419,19 @@ exports.loginWithMicrosoft = async (req, res) => {
             });
 
         } else {
-            // Create new user (similar to your Google auth creation)
-            const createUser = `INSERT INTO users (first_name, last_name, user_type_id, email, microsoft_id, auth_provider, email_verified, updated_at)
-                                VALUES(?,?,?,?,?,?,?,?)`;
+            // Create new user using your existing table structure
+            const createUser = `INSERT INTO users (first_name, last_name, user_type_id, email, provider, provider_id, email_verified, created_at, updated_at)
+                                VALUES(?,?,?,?,?,?,?,?,?)`;
             
             const [result, fields] = await db.query(createUser, [
                 firstName, 
                 lastName, 
                 1, // Default to JobSeeker
                 userEmail, 
-                microsoftId,
                 'microsoft',
+                microsoftId,
                 1, // Microsoft accounts are pre-verified
+                new Date(),
                 new Date()
             ]);
 
@@ -355,7 +444,8 @@ exports.loginWithMicrosoft = async (req, res) => {
                     email: userEmail,
                     user_type_id: 1,
                     type_name: 'JobSeeker',
-                    microsoft_id: microsoftId,
+                    provider: 'microsoft',
+                    provider_id: microsoftId,
                     email_verified: 1
                 };
 
@@ -534,14 +624,6 @@ exports.sendEmailVerificationLink = async (req, res) => {
     }
 }
 
-//test for MSAL route:
-exports.testMicrosoftRoute = async (req, res) => {
-    res.status(200).json({
-        status: true,
-        message: "Microsoft auth route is working",
-        timestamp: new Date()
-    });
-};
 
 
 // exports.validateOTP = async (req, res) => {
