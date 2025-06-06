@@ -3,7 +3,7 @@ import axiosInstance from "@/api/axiosInstance";
 import { LOGIN_WITH_EMAIL, LOGIN_WITH_GOOGLE, LOGIN_WITH_MICROSOFT, REGISTER_WITH_EMAIL, SEND_EMAIL_VERIFICATION_LINK, VERIFY_EMAIL_TOKEN } from "../api/authApi";
 import { LogLevel } from '@azure/msal-browser';
 
-const clientID = process.env.REACT_APP_MICROSOFT_AUTH_APPLICATION_ID
+//const clientID = process.env.REACT_APP_MICROSOFT_AUTH_APPLICATION_ID
 //const tenantID = process.env.REACT_APP_MICROSOFT_TENANT_ID
  
 // Login user Google Account
@@ -87,7 +87,7 @@ export const logout = () => {
 
 export const msalConfig = {
      auth: {
-         clientId: clientID, // This is the ONLY mandatory field that you need to supply.
+         clientId: '92cb9b7f-e2fc-4357-a65a-f2e531919ced', // This is the ONLY mandatory field that you need to supply.
          authority: 'https://login.microsoftonline.com/common/', // Replace the placeholder with your tenant info
          redirectUri: 'http://localhost:3000', // Points to window.location.origin. You must register this URI on Microsoft Entra admin center/App Registration.
          postLogoutRedirectUri: '/', // Indicates the page to navigate after logout.
